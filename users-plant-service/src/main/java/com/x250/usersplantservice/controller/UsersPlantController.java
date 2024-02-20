@@ -29,6 +29,14 @@ public class UsersPlantController {
         usersPlantService.deleteUsersPlant(id);
     }
 
+    @DeleteMapping("/user/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteAllUsersPlants(
+            @PathVariable String id
+    ) {
+        usersPlantService.deleteAllUsersPlant(id);
+    }
+
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UsersPlantResponseDTO updateNextWatering(@PathVariable Long id) throws EntityNotFoundException {

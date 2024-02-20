@@ -22,6 +22,7 @@
         <module>users-plant-service</module>
         <module>discovery-server</module>
         <module>api-gateway</module>
+        <module>authentication-service</module>
     </modules>
 
     <properties>

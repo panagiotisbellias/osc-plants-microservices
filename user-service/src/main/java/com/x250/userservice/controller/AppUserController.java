@@ -2,6 +2,7 @@ package com.x250.userservice.controller;
 
 import com.x250.userservice.dto.AppUserCreateDTO;
 import com.x250.userservice.dto.AppUserResponseDTO;
+import com.x250.userservice.exception.EntityNotFoundException;
 import com.x250.userservice.service.AppUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class AppUserController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteUser(@PathVariable String id) {
+    public void deleteUser(@PathVariable String id) throws EntityNotFoundException {
         appUserService.deleteUser(id);
     }
 

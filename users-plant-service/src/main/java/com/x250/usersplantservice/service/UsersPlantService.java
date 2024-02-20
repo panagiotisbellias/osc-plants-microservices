@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -45,6 +46,11 @@ public class UsersPlantService {
         usersPlantRepository.delete(usersPlant);
     }
 
+    public void deleteAllUsersPlant(String id) {
+        List<UsersPlant> usersPlantList = usersPlantRepository.findByAppUserId(id);
+
+        usersPlantRepository.deleteAllInBatch(usersPlantList);
+    }
 
     public UsersPlantResponseDTO updateNextWatering(Long id) throws EntityNotFoundException {
         UsersPlant usersPlant = ObjectProvider.getObjectFromDB(id, usersPlantRepository);
@@ -55,4 +61,6 @@ public class UsersPlantService {
 
         return usersPlantDTOMapper.apply(usersPlantRepository.save(usersPlant));
     }
+
+
 }
