@@ -17,11 +17,11 @@
     <url>http://maven.apache.org</url>
 
     <modules>
-
         <module>plant-service</module>
         <module>user-service</module>
         <module>users-plant-service</module>
         <module>discovery-server</module>
+        <module>api-gateway</module>
     </modules>
 
     <properties>
