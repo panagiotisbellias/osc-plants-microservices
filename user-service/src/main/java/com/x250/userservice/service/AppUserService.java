@@ -13,6 +13,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class AppUserService {
 
     private final AppUserRepository appUserRepository;
     private final AppUserDTOMapper appUserDTOMapper;
-    private final RestTemplate restTemplate;
+    private final WebClient.Builder webClientBuilder;
 
     public List<AppUserResponseDTO> getAllUsers() {
 
@@ -39,7 +41,9 @@ public class AppUserService {
 
     public void deleteUser(String id) throws EntityNotFoundException {
 
-        if (deleteAllUsersPlants(id)) {
+        boolean successfullyDeletedUsersPlants = deleteAllUsersPlants(id);
+
+        if (successfullyDeletedUsersPlants) {
             AppUser appUser = appUserRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
 
@@ -48,25 +52,18 @@ public class AppUserService {
     }
 
     private boolean deleteAllUsersPlants(String userId) {
-        String url = "http://localhost:8080/api/users_plant/user/{userId}";
+        final String baseUrl = "http://users-plant-service/api/users_plant/user/";
+        final String url = baseUrl + userId;
 
-        // Set headers if needed
-        HttpHeaders headers = new HttpHeaders();
-        // headers.set("Authorization", "Bearer <your_token>");
+        return Boolean.TRUE.equals(deleteUsersPlants(url).block());
+    }
 
-        // Create request entity with headers
-        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-
-        // Execute HTTP DELETE request
-        ResponseEntity<Void> responseEntity = restTemplate.exchange(
-                url,
-                HttpMethod.DELETE,
-                requestEntity,
-                Void.class,
-                userId
-        );
-
-        return responseEntity.getStatusCode().is2xxSuccessful();
+    public Mono<Boolean> deleteUsersPlants(String url) {
+        return webClientBuilder.build().delete()
+                .uri(url)
+//                .headers(headers -> headers.setBearerAuth(jwtToken))
+                .retrieve()
+                .bodyToMono(Boolean.class);
     }
 
     private static AppUser mapToAppUser(AppUserCreateDTO appUserCreateDTO) {

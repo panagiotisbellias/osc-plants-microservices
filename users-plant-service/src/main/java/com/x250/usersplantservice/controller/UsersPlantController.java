@@ -31,10 +31,11 @@ public class UsersPlantController {
 
     @DeleteMapping("/user/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteAllUsersPlants(
+    public boolean deleteAllUsersPlants(
             @PathVariable String id
     ) {
         usersPlantService.deleteAllUsersPlant(id);
+        return true;
     }
 
     @PatchMapping("/{id}")

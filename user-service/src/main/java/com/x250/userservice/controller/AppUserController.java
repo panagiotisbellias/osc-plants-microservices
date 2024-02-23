@@ -4,6 +4,7 @@ import com.x250.userservice.dto.AppUserCreateDTO;
 import com.x250.userservice.dto.AppUserResponseDTO;
 import com.x250.userservice.exception.EntityNotFoundException;
 import com.x250.userservice.service.AppUserService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +32,14 @@ public class AppUserController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteUser(@PathVariable String id) throws EntityNotFoundException {
+    @CircuitBreaker(name = "users_plant", fallbackMethod = "fallbackMethod")
+    public String deleteUser(@PathVariable String id) throws EntityNotFoundException {
         appUserService.deleteUser(id);
+        return "user deleted successfully";
+    }
+
+    public String fallbackMethod(String id, RuntimeException runtimeException){
+        return "Oops! Something went wrong, please try to delete user later!";
     }
 
 }

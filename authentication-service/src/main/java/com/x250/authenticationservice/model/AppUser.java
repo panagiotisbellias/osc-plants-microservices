@@ -1,4 +1,4 @@
-package com.x250.userservice.model;
+package com.x250.authenticationservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
+
 
 @Entity
 @AllArgsConstructor
