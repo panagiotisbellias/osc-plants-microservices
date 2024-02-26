@@ -5,11 +5,14 @@ import com.x250.userservice.dto.AppUserResponseDTO;
 import com.x250.userservice.exception.EntityNotFoundException;
 import com.x250.userservice.service.AppUserService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/api/user")
@@ -33,13 +36,20 @@ public class AppUserController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @CircuitBreaker(name = "users_plant", fallbackMethod = "fallbackMethod")
-    public String deleteUser(@PathVariable String id) throws EntityNotFoundException {
-        appUserService.deleteUser(id);
-        return "user deleted successfully";
+    @TimeLimiter(name = "users_plant")
+    @Retry(name = "users_plant" )
+    public CompletableFuture<String> deleteUser(@PathVariable String id) throws EntityNotFoundException {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return appUserService.deleteUser(id);
+            } catch (EntityNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
-    public String fallbackMethod(String id, RuntimeException runtimeException){
-        return "Oops! Something went wrong, please try to delete user later!";
+    public CompletableFuture<String> fallbackMethod(String id, RuntimeException runtimeException){
+        return CompletableFuture.supplyAsync(() -> "Oops! Something went wrong, please try to delete user later!");
     }
 
 }

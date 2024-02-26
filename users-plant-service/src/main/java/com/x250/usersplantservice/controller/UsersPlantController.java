@@ -33,7 +33,7 @@ public class UsersPlantController {
     @ResponseStatus(HttpStatus.OK)
     public boolean deleteAllUsersPlants(
             @PathVariable String id
-    ) {
+    ) throws InterruptedException {
         usersPlantService.deleteAllUsersPlant(id);
         return true;
     }

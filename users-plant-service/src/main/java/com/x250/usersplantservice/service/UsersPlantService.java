@@ -12,6 +12,7 @@ import com.x250.usersplantservice.repository.PlantRepository;
 import com.x250.usersplantservice.repository.UsersPlantRepository;
 import com.x250.usersplantservice.utils.ObjectProvider;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UsersPlantService {
 
     private final UsersPlantRepository usersPlantRepository;
@@ -46,7 +48,11 @@ public class UsersPlantService {
         usersPlantRepository.delete(usersPlant);
     }
 
-    public void deleteAllUsersPlant(String id) {
+    public void deleteAllUsersPlant(String id) throws InterruptedException {
+//        log.info("Wait Started");
+//        Thread.sleep(10000);
+//        log.info("Wait Ended");
+
         List<UsersPlant> usersPlantList = usersPlantRepository.findByAppUserId(id);
 
         usersPlantRepository.deleteAllInBatch(usersPlantList);

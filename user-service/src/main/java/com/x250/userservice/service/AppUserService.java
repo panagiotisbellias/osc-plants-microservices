@@ -39,16 +39,18 @@ public class AppUserService {
         return appUserDTOMapper.apply(appUserRepository.save(appUser));
     }
 
-    public void deleteUser(String id) throws EntityNotFoundException {
+    public String deleteUser(String id) throws EntityNotFoundException {
 
         boolean successfullyDeletedUsersPlants = deleteAllUsersPlants(id);
 
         if (successfullyDeletedUsersPlants) {
-            AppUser appUser = appUserRepository.findById(id)
-                    .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
-
-            appUserRepository.delete(appUser);
+//            AppUser appUser = appUserRepository.findById(id)
+//                    .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
+//
+//            appUserRepository.delete(appUser);
+            return "User deleted successfully";
         }
+        return "User " + id + " not found";
     }
 
     private boolean deleteAllUsersPlants(String userId) {

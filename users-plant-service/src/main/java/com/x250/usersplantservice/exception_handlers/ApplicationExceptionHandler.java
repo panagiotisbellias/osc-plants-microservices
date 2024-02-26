@@ -21,4 +21,11 @@ public class ApplicationExceptionHandler {
         return errorMap;
     }
 
+    @ResponseStatus(HttpStatus.NOT_EXTENDED)
+    @ExceptionHandler(InterruptedException.class)
+    public Map<String, String> handleInterruptedException(EntityNotFoundException ex) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("errorMessage", ex.getMessage());
+        return errorMap;
+    }
 }
