@@ -29,6 +29,8 @@ public class UsersPlantController {
         usersPlantService.deleteUsersPlant(id);
     }
 
+    // TODO GetMapping wszystkie roślinki użytkownika po Id użytkownika
+
     @DeleteMapping("/user/{id}")
     @ResponseStatus(HttpStatus.OK)
     public boolean deleteAllUsersPlants(

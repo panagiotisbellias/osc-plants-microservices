@@ -15,13 +15,8 @@ public class WateringChecker {
     private final UsersPlantRepository usersPlantRepository;
 
     List<UsersPlant> findPlantsToWater(LocalDateTime currentTime) {
-//        List<UsersPlant> usersPlantList = usersPlantRepository.findAll();
-//
-//        return usersPlantList.stream()
-//                .filter(usersPlant -> usersPlant.getNextWatering().isAfter(currentTime))
-//                .toList();
-        return usersPlantRepository.findByNextWateringIsBefore(currentTime);
 
+        return usersPlantRepository.findByNextWateringIsBefore(currentTime);
     }
 
     void moveNextWateringOneDayAhead(UsersPlant usersPlant) {

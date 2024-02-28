@@ -2,6 +2,7 @@ package com.x250.apigateway.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,27 +31,33 @@ public class AuthFilter implements WebFilter {
     @Override
     public Mono<Void> filter(@NonNull ServerWebExchange exchange, @NonNull WebFilterChain chain) {
 
-        if (!routeValidator.isSecured.test(exchange.getRequest())) {
+        try {
+            if (!routeValidator.isSecured.test(exchange.getRequest())) {
+                return chain.filter(exchange);
+            }
+
+            if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
+                return chain.filter(exchange);
+            }
+
+            String jwt = resolveToken(exchange.getRequest());
+            if (jwt == null) {
+                return chain.filter(exchange);
+            }
+
+            if (StringUtils.hasText(jwt) && jwtService.isTokenValid(jwt)) {
+                return Mono.fromCallable(() -> getAuthentication(jwt))
+                        .subscribeOn(Schedulers.boundedElastic())
+                        .flatMap(authentication -> chain.filter(exchange)
+                                .contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication)));
+
+            }
             return chain.filter(exchange);
+        } catch (Exception exception) {
+            return chain.filter(exchange).onErrorResume(Exception.class, ex -> Mono.fromRunnable(() ->
+                exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED)
+            ));
         }
-
-        if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-            return chain.filter(exchange);
-        }
-
-        String jwt = resolveToken(exchange.getRequest());
-        if (jwt == null) {
-            return chain.filter(exchange);
-        }
-
-        if (StringUtils.hasText(jwt) && jwtService.isTokenValid(jwt)) {
-            return Mono.fromCallable(() -> getAuthentication(jwt))
-                    .subscribeOn(Schedulers.boundedElastic())
-                    .flatMap(authentication -> chain.filter(exchange)
-                            .contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication)));
-
-        }
-        return chain.filter(exchange);
     }
 
     private Authentication getAuthentication(String token) {

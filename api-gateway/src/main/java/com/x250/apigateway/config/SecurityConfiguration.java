@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
@@ -24,14 +25,6 @@ import static org.springframework.http.HttpMethod.*;
 public class SecurityConfiguration {
 
     private final AuthFilter authFilter;
-
-    @Autowired
-    @Qualifier("customAuthenticationEntryPoint")
-    ServerAuthenticationEntryPoint authEntryPoint;
-
-    @Autowired
-    @Qualifier("customAccessDeniedHandler")
-    ServerAccessDeniedHandler accessDeniedHandler;
 
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity serverHttpSecurity) {
@@ -59,11 +52,25 @@ public class SecurityConfiguration {
                                 .authenticated())
                 .addFilterAt(authFilter, SecurityWebFiltersOrder.AUTHENTICATION)
 //                .exceptionHandling(exceptionHandlingSpec -> exceptionHandlingSpec
-//                        .authenticationEntryPoint(authEntryPoint)
-//                        .accessDeniedHandler(accessDeniedHandler))
+//                        .authenticationEntryPoint(authEntryPoint())
+//                        .accessDeniedHandler(accessDeniedHandler()))
                 ;
 
         return serverHttpSecurity.build();
+    }
+
+    @Bean
+    public ServerAccessDeniedHandler accessDeniedHandler() {
+        return ((exchange, denied) ->
+                Mono.defer(()-> Mono.just(exchange.getResponse().setComplete().then()))
+                        .then(Mono.fromRunnable(() -> exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN))));
+    }
+
+    @Bean
+    public ServerAuthenticationEntryPoint authEntryPoint() {
+        return ((exchange, event) ->
+                Mono.defer(()-> Mono.just(exchange.getResponse().setComplete().then()))
+                        .then(Mono.fromRunnable(() -> exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED))));
     }
 
 }

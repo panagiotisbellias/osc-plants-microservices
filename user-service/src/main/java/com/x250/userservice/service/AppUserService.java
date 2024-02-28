@@ -6,6 +6,8 @@ import com.x250.userservice.dto.AppUserResponseDTO;
 import com.x250.userservice.exception.EntityNotFoundException;
 import com.x250.userservice.model.AppUser;
 import com.x250.userservice.repository.AppUserRepository;
+import io.micrometer.observation.Observation;
+import io.micrometer.observation.ObservationRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +27,7 @@ public class AppUserService {
     private final AppUserRepository appUserRepository;
     private final AppUserDTOMapper appUserDTOMapper;
     private final WebClient.Builder webClientBuilder;
+    private final ObservationRegistry observationRegistry;
 
     public List<AppUserResponseDTO> getAllUsers() {
 
@@ -41,16 +44,27 @@ public class AppUserService {
 
     public String deleteUser(String id) throws EntityNotFoundException {
 
-        boolean successfullyDeletedUsersPlants = deleteAllUsersPlants(id);
+        Observation inventoryServiceObservation = Observation.createNotStarted("users-plant-service-lookup",
+                this.observationRegistry);
+        inventoryServiceObservation.lowCardinalityKeyValue("call", "users-plant-service");
+        return inventoryServiceObservation.observe(() -> {
 
-        if (successfullyDeletedUsersPlants) {
+
+            boolean successfullyDeletedUsersPlants = deleteAllUsersPlants(id);
+
+            if (successfullyDeletedUsersPlants) {
 //            AppUser appUser = appUserRepository.findById(id)
 //                    .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
 //
 //            appUserRepository.delete(appUser);
-            return "User deleted successfully";
-        }
-        return "User " + id + " not found";
+                return "User deleted successfully";
+            }
+            return "User " + id + " not found";
+
+
+
+        });
+
     }
 
     private boolean deleteAllUsersPlants(String userId) {
