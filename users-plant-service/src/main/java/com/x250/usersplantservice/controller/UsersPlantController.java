@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/users_plant")
 @RequiredArgsConstructor
@@ -30,6 +32,12 @@ public class UsersPlantController {
     }
 
     // TODO GetMapping wszystkie roślinki użytkownika po Id użytkownika
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+        public List<UsersPlantResponseDTO> getUsersPlants(
+                @PathVariable String id) {
+        return usersPlantService.getUsersPlants(id);
+    }
 
     @DeleteMapping("/user/{id}")
     @ResponseStatus(HttpStatus.OK)

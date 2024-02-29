@@ -1,4 +1,4 @@
-package com.x250.usersplantservice.event;
+package com.x250.notificationservice.message_queue;
 
 import java.time.LocalDateTime;
 
@@ -10,5 +10,3 @@ public record PlantWateringEvent(
         String uppUserEmail
 ) {
 }
-
-

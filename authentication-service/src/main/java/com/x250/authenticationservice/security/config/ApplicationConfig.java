@@ -32,6 +32,7 @@ public class ApplicationConfig {
         };
     } //This is a lambda expression that serves as the implementation of the loadUserByUsername method in the UserDetailsService interface
 
+
     @Bean // data access object which is responsible to fetch the user details and also encode password and so forth
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(); // one of implementations

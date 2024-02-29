@@ -51,9 +51,7 @@ public class SecurityConfiguration {
                                 .anyExchange()
                                 .authenticated())
                 .addFilterAt(authFilter, SecurityWebFiltersOrder.AUTHENTICATION)
-//                .exceptionHandling(exceptionHandlingSpec -> exceptionHandlingSpec
-//                        .authenticationEntryPoint(authEntryPoint())
-//                        .accessDeniedHandler(accessDeniedHandler()))
+//
                 ;
 
         return serverHttpSecurity.build();

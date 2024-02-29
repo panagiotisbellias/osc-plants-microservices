@@ -69,4 +69,12 @@ public class UsersPlantService {
     }
 
 
+    public List<UsersPlantResponseDTO> getUsersPlants(String userId) {
+
+        List<UsersPlant> usersPlants = usersPlantRepository.findByAppUserId(userId);
+
+        return usersPlants.stream()
+                .map(usersPlantDTOMapper)
+                .toList();
+    }
 }
