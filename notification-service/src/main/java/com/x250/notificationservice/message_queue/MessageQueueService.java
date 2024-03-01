@@ -1,5 +1,6 @@
 package com.x250.notificationservice.message_queue;
 
+import com.x250.notificationservice.event.PlantWateringEvent;
 import com.x250.notificationservice.model.UsersPlantToWater;
 import com.x250.notificationservice.repository.NotificationRepository;
 import lombok.RequiredArgsConstructor;

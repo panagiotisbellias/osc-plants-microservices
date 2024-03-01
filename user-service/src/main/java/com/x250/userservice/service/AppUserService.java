@@ -61,8 +61,6 @@ public class AppUserService {
             }
             return "User " + id + " not found";
 
-
-
         });
 
     }
@@ -91,4 +89,8 @@ public class AppUserService {
                 .build();
     }
 
+    public AppUserResponseDTO getUserById(String id) throws EntityNotFoundException {
+        return appUserDTOMapper.apply(appUserRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found in DB")));    }
 }

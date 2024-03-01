@@ -27,6 +27,14 @@ public class AppUserController {
         return appUserService.getAllUsers();
     }
 
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public AppUserResponseDTO getUserById(
+            @PathVariable String id
+    ) throws EntityNotFoundException {
+        return appUserService.getUserById(id);
+    }
+
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public AppUserResponseDTO addUser(@RequestBody AppUserCreateDTO appUserCreateDTO) {

@@ -2,6 +2,7 @@ package com.x250.plantservice.controller;
 
 import com.x250.plantservice.dto.PlantCreateDTO;
 import com.x250.plantservice.dto.PlantResponseDTO;
+import com.x250.plantservice.exception.EntityNotFoundException;
 import com.x250.plantservice.model.Plant;
 import com.x250.plantservice.service.PlantService;
 import jakarta.validation.Valid;
@@ -29,6 +30,22 @@ public class PlantController {
      * If data not valid 400 status code returned and message in the console
      * @param plantCreateDTO
      */
+
+    @GetMapping("/name")
+    @ResponseStatus(HttpStatus.OK)
+    public List<PlantResponseDTO> searchPlantsByName(
+            @RequestParam String name
+    ) {
+        return plantService.searchPlantsByName(name);
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public PlantResponseDTO getPlantById(
+            @PathVariable String id
+    ) throws EntityNotFoundException {
+        return plantService.getPlantById(id);
+    }
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)

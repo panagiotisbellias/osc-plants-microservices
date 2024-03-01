@@ -1,4 +1,4 @@
-package com.x250.notificationservice.message_queue;
+package com.x250.notificationservice.event;
 
 import java.time.LocalDateTime;
 

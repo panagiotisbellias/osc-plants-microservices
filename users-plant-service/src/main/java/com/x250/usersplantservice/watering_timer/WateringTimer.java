@@ -21,7 +21,7 @@ public class WateringTimer {
     private final UsersPlantRepository usersPlantRepository;
     private Long counter = 0L;
 
-    @Scheduled(fixedDelay = 10000) // Runs every 1000 milliseconds (1 second)
+//    @Scheduled(fixedDelay = 10000) // Runs every 1000 milliseconds (1 second)
     public void verifyTime() {
 //        LocalDateTime currentTime = LocalDateTime.now();
 //
@@ -59,6 +59,5 @@ public class WateringTimer {
         counter++;
 
     }
-
 
 }
