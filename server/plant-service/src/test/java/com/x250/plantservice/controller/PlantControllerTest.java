@@ -95,7 +95,6 @@ class PlantControllerTest {
         });
         //then
         assertTrue(plants.isEmpty());
-
     }
 
     @Test

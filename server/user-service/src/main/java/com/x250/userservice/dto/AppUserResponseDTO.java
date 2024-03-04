@@ -8,6 +8,7 @@ public record AppUserResponseDTO(
         String id,
         String username,
         String email,
+        String imageUrl,
         Role role
 ) {
 }
