@@ -1,23 +1,16 @@
 package com.x250.apigateway.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
-import org.springframework.security.web.server.authorization.ServerAccessDeniedHandler;
-import reactor.core.publisher.Mono;
 
-import static org.springframework.http.HttpMethod.*;
+import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.GET;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -30,7 +23,7 @@ public class SecurityConfiguration {
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity serverHttpSecurity) {
         serverHttpSecurity
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
-                .cors(ServerHttpSecurity.CorsSpec::disable)
+                .cors(Customizer.withDefaults())
                 .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
                 .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
                 .authorizeExchange(exchange ->
@@ -57,18 +50,19 @@ public class SecurityConfiguration {
         return serverHttpSecurity.build();
     }
 
-    @Bean
-    public ServerAccessDeniedHandler accessDeniedHandler() {
-        return ((exchange, denied) ->
-                Mono.defer(()-> Mono.just(exchange.getResponse().setComplete().then()))
-                        .then(Mono.fromRunnable(() -> exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN))));
-    }
 
-    @Bean
-    public ServerAuthenticationEntryPoint authEntryPoint() {
-        return ((exchange, event) ->
-                Mono.defer(()-> Mono.just(exchange.getResponse().setComplete().then()))
-                        .then(Mono.fromRunnable(() -> exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED))));
-    }
+//    @Bean
+//    public ServerAccessDeniedHandler accessDeniedHandler() {
+//        return ((exchange, denied) ->
+//                Mono.defer(()-> Mono.just(exchange.getResponse().setComplete().then()))
+//                        .then(Mono.fromRunnable(() -> exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN))));
+//    }
+//
+//    @Bean
+//    public ServerAuthenticationEntryPoint authEntryPoint() {
+//        return ((exchange, event) ->
+//                Mono.defer(()-> Mono.just(exchange.getResponse().setComplete().then()))
+//                        .then(Mono.fromRunnable(() -> exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED))));
+//    }
 
 }

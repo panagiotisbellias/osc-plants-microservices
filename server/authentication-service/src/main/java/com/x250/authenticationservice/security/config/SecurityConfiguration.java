@@ -1,5 +1,7 @@
 package com.x250.authenticationservice.security.config;
 
+import com.x250.authenticationservice.exception_handling.DelegatedAccessDeniedHandler;
+import com.x250.authenticationservice.exception_handling.DelegatedAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,32 +27,28 @@ public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
+    private final DelegatedAuthenticationEntryPoint delegatedAuthenticationEntryPoint;
+    private final DelegatedAccessDeniedHandler delegatedAccessDeniedHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf((csrf) -> csrf.disable());
-        http.cors(Customizer.withDefaults());
-        http.authorizeHttpRequests(authz -> authz
-                .requestMatchers(
-                        "/api/v1/auth/**"
-                )
-                .permitAll()
-                .anyRequest().authenticated());
-        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        http.authenticationProvider(authenticationProvider);
-        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        http
+                .csrf((csrf) -> csrf.disable())
+                .cors(cors -> cors.disable())
+                .authorizeHttpRequests(authz -> authz
+                        .requestMatchers(
+                                "/api/v1/auth/**"
+                        )
+                        .permitAll()
+                        .anyRequest().authenticated())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(httpSecurityExceptionHandlingConfigurer -> httpSecurityExceptionHandlingConfigurer
+                        .authenticationEntryPoint(delegatedAuthenticationEntryPoint)
+                        .accessDeniedHandler(delegatedAccessDeniedHandler)
+                );
         return http.build();
-    }
-
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("*"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
     }
 
 }
