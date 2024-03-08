@@ -6,7 +6,7 @@ import UsersPlantApi from "../../api/UsersPlantApi";
 import { UserContext } from "../../context/UserContext";
 
 import { CLOSE_TIME } from "../../constants/constants";
-import SingleUsersPlant from "../navbar/single_users_plant/SingleUsersPlant";
+import SingleUsersPlant from "../single_users_plant/SingleUsersPlant";
 
 export default function PlantCards() {
   const { currentUser } = useContext(UserContext);

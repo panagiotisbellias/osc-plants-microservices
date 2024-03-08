@@ -1,9 +1,9 @@
 import { Box, Button, Paper, Stack } from "@mui/material";
 import { useCallback } from "react";
 import { toast } from "react-toastify";
-import { UsersPlant } from "../../../model/api/UsersPlant";
-import { CLOSE_TIME, COLOR_1 } from "../../../constants/constants";
-import UsersPlantApi from "../../../api/UsersPlantApi";
+import { UsersPlant } from "../../model/api/UsersPlant";
+import { CLOSE_TIME, COLOR_1 } from "../../constants/constants";
+import UsersPlantApi from "../../api/UsersPlantApi";
 
 interface SingleUsersPlantProps {
   usersPlant: UsersPlant;
