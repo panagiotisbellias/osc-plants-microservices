@@ -1,17 +1,19 @@
-import { createContext, useEffect, useState } from "react";
-import { UserContextType } from "../models/UserContextType";
-import { ACCESS_TOKEN } from "../constants/constants";
 import jwtDecode from "jwt-decode";
-import { UserFromToken } from "../models/UserFromToken";
+import { createContext, useEffect, useState } from "react";
+
+import { UserContextType } from "../model/UserContextType";
+import { UserFromToken } from "../model/UserFromToken";
+import { ACCESS_TOKEN } from "../constants/constants";
 
 const defaultSettings: UserContextType = {
   currentUser: null,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   userModifier: (user: UserFromToken | null) => {},
 };
 
 export const UserContext = createContext<UserContextType>(defaultSettings);
 
-export const UserContextProvider = ({ children }: React.PropsWithChildren) => {
+export function UserContextProvider({ children }: React.PropsWithChildren) {
   const [currentUser, setCurrentUser] = useState<UserFromToken | null>(null);
 
   const userModifier = (user: UserFromToken | null) => {
@@ -27,8 +29,9 @@ export const UserContextProvider = ({ children }: React.PropsWithChildren) => {
   }, []);
 
   return (
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
     <UserContext.Provider value={{ currentUser, userModifier }}>
       {children}
     </UserContext.Provider>
   );
-};
+}
