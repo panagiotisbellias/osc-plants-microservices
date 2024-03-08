@@ -24,7 +24,7 @@ public class UsersPlant {
     @JoinColumn(name = "user_id")
     private AppUser appUser;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "plant_id")
     private Plant plant;
 

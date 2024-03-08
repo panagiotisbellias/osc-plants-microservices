@@ -12,6 +12,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -31,12 +33,15 @@ public class AuthenticationService {
                 .role(request.role())
                 .build();
         Optional<AppUser> appUserOptional = repository.findByEmail(request.email());
-        if(appUserOptional.isPresent()) {
+        if (appUserOptional.isPresent()) {
             throw new RuntimeException("user already exists");
         }
 
         repository.save(user);
-        String jwtToken = jwtService.generateToken(user);
+
+        Map<String, Object> claims = getClaims(user);
+        String jwtToken = jwtService.generateToken(claims, user);
+
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .build();
@@ -51,7 +56,10 @@ public class AuthenticationService {
         );
         AppUser user = repository.findByEmail(request.email())
                 .orElseThrow();
-        String jwtToken = jwtService.generateToken(user);
+
+        Map<String, Object> claims = getClaims(user);
+        String jwtToken = jwtService.generateToken(claims, user);
+
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .build();
@@ -59,5 +67,16 @@ public class AuthenticationService {
 
     public Boolean validateToken(String token) {
         return jwtService.isTokenValid(token);
+    }
+
+    private Map<String, Object> getClaims(AppUser user) {
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", user.getId());
+        claims.put("username", user.getUsername());
+        claims.put("imageUrl", user.getImageUrl());
+        claims.put("role", user.getRole().name());
+
+        return claims;
     }
 }
