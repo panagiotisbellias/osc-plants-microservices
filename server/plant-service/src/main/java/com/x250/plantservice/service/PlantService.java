@@ -48,4 +48,5 @@ public class PlantService {
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Plant " + id + " not found in DB")));
     }
+
 }
