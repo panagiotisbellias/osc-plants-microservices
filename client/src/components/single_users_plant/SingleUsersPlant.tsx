@@ -2,7 +2,7 @@ import { Box, Button, Paper, Stack } from "@mui/material";
 import { useCallback } from "react";
 import { toast } from "react-toastify";
 import { UsersPlant } from "../../model/api/UsersPlant";
-import { CLOSE_TIME, COLOR_1 } from "../../constants/constants";
+import { CLOSE_TIME, COLOR_2 } from "../../constants/constants";
 import UsersPlantApi from "../../api/UsersPlantApi";
 
 interface SingleUsersPlantProps {
@@ -44,11 +44,11 @@ export default function SingleUsersPlant({
   return (
     <Box>
       <Paper
-        elevation={4}
+        elevation={8}
         sx={{
-          backgroundColor: COLOR_1,
-          width: "420px",
-          padding: "40px 0",
+          backgroundColor: COLOR_2,
+          width: "250px",
+          // padding: "40px 0",
           borderRadius: "10px",
           display: "flex",
           alignItems: "center",
@@ -56,15 +56,42 @@ export default function SingleUsersPlant({
         }}
       >
         <Stack width={360} direction="column" spacing={2} alignItems="center">
-          <Box>{usersPlant.needsWater ? "Needs Water" : "No water"}</Box>
-          <Box>{usersPlant.id}</Box>
-          <Box>{usersPlant.plant.photo}</Box>
-          <Box>{usersPlant.plant.name}</Box>
-          <Box>{usersPlant.plant.description}</Box>
-          <Box>{usersPlant.plant.wateringInterval}</Box>
-          <Box>{new Date(usersPlant.nextWatering).toLocaleString()}</Box>
-          <Button onClick={waterPlant}>Water me</Button>
-          <Button onClick={deleteUsersPlant}>Delete</Button>
+          <Box>
+            <img
+              src={usersPlant.plant.photo}
+              alt="plant"
+              width="200px"
+              height="200px"
+              style={{ marginTop: "24px" }}
+            />
+          </Box>
+          <Box
+            sx={{
+              width: "200px",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Box>{usersPlant.plant.name}</Box>
+            <Box>{usersPlant.plant.wateringInterval}</Box>
+          </Box>
+          <Box sx={{ width: "200px" }}>{usersPlant.plant.description}</Box>
+
+          <Box>
+            Water on {new Date(usersPlant.nextWatering).toLocaleString()}
+          </Box>
+          <Box
+            sx={{
+              width: "200px",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Button onClick={deleteUsersPlant}>Delete</Button>
+            {usersPlant.needsWater && (
+              <Button onClick={waterPlant}>Water me</Button>
+            )}
+          </Box>
         </Stack>
       </Paper>
     </Box>

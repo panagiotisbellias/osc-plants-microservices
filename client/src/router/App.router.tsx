@@ -6,6 +6,8 @@ import Register from "../pages/register/Register";
 import UnauthorizedRoute from "../components/UnauthorizedRoute";
 import { withAxiosIntercepted } from "../hoc/withAxiosIntercepted";
 import ProtectedRoute from "../components/ProtectedRoute";
+import PlantCatalogue from "../pages/plant_catalogue/PlantCatalogue";
+import User from "../pages/user/User";
 
 function AppRouter() {
   return (
@@ -19,6 +21,8 @@ function AppRouter() {
         }
       >
         <Route index element={<PlantCards />} />
+        <Route path="plants" element={<PlantCatalogue />} />
+        <Route path="user" element={<User />} />
       </Route>
 
       <Route
