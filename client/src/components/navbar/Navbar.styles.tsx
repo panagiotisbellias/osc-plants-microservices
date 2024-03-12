@@ -20,10 +20,10 @@ export const NavbarContainer = styled.div`
 `;
 
 export const NavbarLinks = styled.div`
-  width: 60%;
+  width: 70%;
   height: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: flex-end;
 `;
 

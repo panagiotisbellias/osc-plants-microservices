@@ -7,7 +7,10 @@ import { UserContext } from "../../context/UserContext";
 
 import { CLOSE_TIME } from "../../constants/constants";
 import SingleUsersPlant from "../single_users_plant/SingleUsersPlant";
-import { PlantCardsContainer, PlantCardsMainStyle } from "./UsersPlants.styles";
+import {
+  PlantCardsContainer,
+  PlantCardsMainContainerStyle,
+} from "./UsersPlants.styles";
 
 export default function PlantCards() {
   const { currentUser } = useContext(UserContext);
@@ -61,7 +64,7 @@ export default function PlantCards() {
           currentUser?.id
         );
         // const plantsToWater: number[] = plantsToWaterResponse.data;
-        const plantsToWater: number[] = [21];
+        const plantsToWater: number[] = [8, 10];
 
         const updatedUserPlants = newUserPlants.map((plant) => ({
           ...plant,
@@ -85,29 +88,17 @@ export default function PlantCards() {
   }, [currentUser, getUsersPlants]);
 
   return (
-    <PlantCardsMainStyle>
-      <Box
-        sx={{
-          width: "90%",
-          marginTop: "36px",
-          marginBottom: "36px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <PlantCardsContainer>
-          {usersPlants.map((usersPlant) => (
-            <SingleUsersPlant
-              key={usersPlant.id}
-              usersPlant={usersPlant}
-              updateNextWatering={updateNextWatering}
-              removeUsersPlant={removeUsersPlant}
-            />
-          ))}
-        </PlantCardsContainer>
-      </Box>
-    </PlantCardsMainStyle>
+    <PlantCardsMainContainerStyle>
+      <PlantCardsContainer>
+        {usersPlants.map((usersPlant) => (
+          <SingleUsersPlant
+            key={usersPlant.id}
+            usersPlant={usersPlant}
+            updateNextWatering={updateNextWatering}
+            removeUsersPlant={removeUsersPlant}
+          />
+        ))}
+      </PlantCardsContainer>
+    </PlantCardsMainContainerStyle>
   );
 }

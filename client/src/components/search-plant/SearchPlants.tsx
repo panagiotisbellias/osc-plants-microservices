@@ -74,7 +74,7 @@ export default function SearchPlants({ updatePlants }: SearchPlantsProps) {
       // label="Search e-mail"
       value={searchTerm}
       onChange={onSearchTermChange}
-      placeholder="Search users"
+      placeholder="Search plants"
       // size={textFieldSize}
       InputProps={{
         startAdornment: (
