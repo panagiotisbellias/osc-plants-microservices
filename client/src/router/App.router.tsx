@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Navbar from "../components/navbar/Navbar";
-import PlantCards from "../components/users_plants/UsersPlants";
+import PlantCards from "../pages/users_plants/UsersPlants";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import UnauthorizedRoute from "../components/UnauthorizedRoute";

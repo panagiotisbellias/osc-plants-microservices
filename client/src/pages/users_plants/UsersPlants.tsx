@@ -1,12 +1,10 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Box, Paper, Stack } from "@mui/material";
 import { UsersPlant } from "../../model/api/UsersPlant";
 import UsersPlantApi from "../../api/UsersPlantApi";
 import { UserContext } from "../../context/UserContext";
-
 import { CLOSE_TIME } from "../../constants/constants";
-import SingleUsersPlant from "../single_users_plant/SingleUsersPlant";
+import SingleUsersPlant from "../../components/single_users_plant/SingleUsersPlant";
 import {
   PlantCardsContainer,
   PlantCardsMainContainerStyle,
