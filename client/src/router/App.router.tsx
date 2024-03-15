@@ -8,6 +8,7 @@ import { withAxiosIntercepted } from "../hoc/withAxiosIntercepted";
 import ProtectedRoute from "../components/ProtectedRoute";
 import PlantCatalogue from "../pages/plant_catalogue/PlantCatalogue";
 import User from "../pages/user/User";
+import RedirectHandler from "../pages/redirect_handler/RedirectHandler";
 
 function AppRouter() {
   return (
@@ -41,6 +42,7 @@ function AppRouter() {
           </UnauthorizedRoute>
         }
       />
+      <Route path="/oauth2/redirect" element={<RedirectHandler />} />
     </Routes>
   );
 }

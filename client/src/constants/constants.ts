@@ -1,4 +1,5 @@
 export const ACCESS_TOKEN: string = "ACCESS_TOKEN";
+export const GOOGLE_AUTH_URL = `${import.meta.env.VITE_API_BASE_URL}/oauth2/authorize/google?redirect_uri=${import.meta.env.VITE_REDIRECT_URL}`;
 
 export const CLOSE_TIME: number = 2000;
 

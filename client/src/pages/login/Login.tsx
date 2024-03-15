@@ -13,6 +13,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+
 import { UserContext } from "../../context/UserContext";
 import { SignInRequest } from "../../model/api/SignInRequest";
 import AuthApi from "../../api/AuthApi";
@@ -24,6 +25,7 @@ import { UserFromToken } from "../../model/UserFromToken";
 import {
   CLOSE_TIME,
   COLOR_1,
+  GOOGLE_AUTH_URL,
   MIN_PASSWORD_LENGTH,
 } from "../../constants/constants";
 import { LoginLink, LoginLinkContainer, LoginLinkSpan } from "./Login.styles";
@@ -41,6 +43,10 @@ export default function Login() {
   const [isPasswordValid, setIsPasswordValid] = useState<boolean>(false);
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  function onGoogleLoginClick() {
+    window.location.href = GOOGLE_AUTH_URL;
+  }
 
   const onLoginClicked = useCallback(async () => {
     try {
@@ -162,6 +168,9 @@ export default function Login() {
             sx={{ width: "120px" }}
           >
             Sign In
+          </Button>
+          <Button onClick={() => onGoogleLoginClick()}>
+            Log in with Google
           </Button>
           <LoginLinkContainer>
             <LoginLink>
