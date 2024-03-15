@@ -37,17 +37,19 @@ public class SecurityConfiguration {
                                 .permitAll()
                                 .pathMatchers(
                                         "/eureka/**",
-                                        "/api/v1/auth/register",
-                                        "/api/v1/auth/authenticate"
-//                                        "/api/user/"
+                                        "/api/v1/auth/**",
+//                                        "/api/v1/auth/register",
+//                                        "/api/v1/auth/authenticate",
+
+                                        "/auth/**",
+                                        "/oauth2/**"
 
                                 )
                                 .permitAll()
-                                .pathMatchers(GET, "/api/plant/")
-
-                                .permitAll()
-                                .pathMatchers(DELETE, "/api/users_plant/user/**")
-                                .permitAll()
+//                                .pathMatchers(GET, "/api/plant/")
+//                                .permitAll()
+//                                .pathMatchers(DELETE, "/api/users_plant/user/**")
+//                                .permitAll()
                                 .anyExchange()
                                 .authenticated())
                 .addFilterAt(authFilter, SecurityWebFiltersOrder.AUTHENTICATION)

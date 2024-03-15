@@ -2,12 +2,14 @@ package com.x250.authenticationservice.security.config;
 
 import com.x250.authenticationservice.model.AppUser;
 import com.x250.authenticationservice.repository.AppUserRepository;
+import com.x250.authenticationservice.security.UserPrincipal;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +52,19 @@ public class JwtService {
             AppUser appUser
     ) {
         return buildToken(extraClaims, appUser, jwtExpiration);
+    }
+
+    public String generateToken(Map<String, Object> extraClaims, Authentication authentication) { // method dedicated to OAuht2
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+
+        return Jwts
+                .builder()
+                .setClaims(extraClaims)
+                .setSubject(userPrincipal.getEmail()) // TODO tutaj powinno raczej być get email niż get Id
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .compact();
     }
 
     private String buildToken(

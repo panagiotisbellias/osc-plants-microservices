@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -32,7 +31,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
     @Value("${application.authorizedRedirectUris}")
-    private String authorizedRedirectUris; // TODO czy działa ten import z application.properties:
+    private String authorizedRedirectUris;
 
     private List<String> urisList;
 
@@ -68,10 +67,10 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", userPrincipal.getId());
         claims.put("username", userPrincipal.getUsername());
+        claims.put("imageUrl", userPrincipal.getAttributes().get("picture"));
         claims.put("role", "USER");
-        claims.put("dupa", "dupa");
 
-        String token = jwtService.generateToken(claims, authentication); // TODO generowanie tokenu czy można włożyć do niego claimsy???
+        String token = jwtService.generateToken(claims, authentication);
 
         return UriComponentsBuilder.fromUriString(targetUrl)
                 .queryParam("token", token)
