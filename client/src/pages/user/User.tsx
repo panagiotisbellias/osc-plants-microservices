@@ -2,14 +2,6 @@
 import { useCallback, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { UserContext } from "../../context/UserContext";
-import UserApi from "../../api/UserApi";
-import {
-  CLOSE_TIME,
-  COLOR_1,
-  COLOR_2,
-  COLOR_5,
-} from "../../constants/constants";
 import {
   Avatar,
   Box,
@@ -18,9 +10,16 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  CardMedia,
   Typography,
 } from "@mui/material";
+import { UserContext } from "../../context/UserContext";
+import UserApi from "../../api/UserApi";
+import {
+  CLOSE_TIME,
+  COLOR_1,
+  COLOR_2,
+  COLOR_5,
+} from "../../constants/constants";
 
 export default function User() {
   const navigate = useNavigate();

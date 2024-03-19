@@ -28,7 +28,14 @@ import {
   GOOGLE_AUTH_URL,
   MIN_PASSWORD_LENGTH,
 } from "../../constants/constants";
-import { LoginLink, LoginLinkContainer, LoginLinkSpan } from "./Login.styles";
+import {
+  GoogleButton,
+  LoginLink,
+  LoginLinkContainer,
+  LoginLinkSpan,
+} from "./Login.styles";
+import logo from "../../assets/web_neutral_sq_SI.svg";
+import MySvgIcon from "./SvgIcon";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -169,8 +176,21 @@ export default function Login() {
           >
             Sign In
           </Button>
+          <GoogleButton disabled={false}> Sign in with Google</GoogleButton>
+          <div
+            style={{
+              display: "inline-block",
+              backgroundColor: "white",
+            }}
+          >
+            <img src={logo} alt="" />
+            WW
+          </div>
           <Button onClick={() => onGoogleLoginClick()}>
-            Log in with Google
+            Sign in with Google
+          </Button>
+          <Button variant="outlined">
+            <MySvgIcon />
           </Button>
           <LoginLinkContainer>
             <LoginLink>

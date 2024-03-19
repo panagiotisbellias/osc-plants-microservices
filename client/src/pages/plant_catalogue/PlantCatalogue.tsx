@@ -14,13 +14,16 @@ import { UserContext } from "../../context/UserContext";
 import UsersPlantApi from "../../api/UsersPlantApi";
 import { CLOSE_TIME } from "../../constants/constants";
 import SinglePlant from "../../components/single_plant/SinglePlant";
+import { Loader } from "../../router/App.styles";
 
 export default function PlantCatalogue() {
   const { currentUser } = useContext(UserContext);
   const [plants, setPlants] = useState<Plant[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const updatePlants = (foundPlants: Plant[]) => {
     setPlants(foundPlants);
+    setIsLoading(false);
   };
 
   const addUsersPlant = useCallback(
@@ -62,6 +65,7 @@ export default function PlantCatalogue() {
           <SearchPlants updatePlants={updatePlants} />
         </SearchPlantsContainer>
       </SearchBackgroundContainer>
+      <Loader />
       <SearchResultsContainer>
         {plants.map((plant) => (
           <SinglePlant

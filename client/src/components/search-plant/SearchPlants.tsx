@@ -19,6 +19,7 @@ export default function SearchPlants({ updatePlants }: SearchPlantsProps) {
 
   const searchPlantsByName = useCallback(async (searchName: string) => {
     try {
+      //setIsLoading(true);
       const response = await PlantApi.searchPlantsByName(searchName);
       updatePlants(response.data);
       // console.log("response.data", response.data);
@@ -27,6 +28,7 @@ export default function SearchPlants({ updatePlants }: SearchPlantsProps) {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: CLOSE_TIME,
       });
+      //setIsLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

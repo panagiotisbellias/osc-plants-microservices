@@ -1,8 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+// captcha name: my_plants_app
+// key: 6LfTL50pAAAAAEZCVYCqRm5hxfbsr7e_ygF9kSSw
+
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import jwtDecode from "jwt-decode";
+import ReCAPTCHA from "react-google-recaptcha";
 import {
   Box,
   Button,
@@ -24,6 +29,7 @@ import {
 import {
   CLOSE_TIME,
   COLOR_1,
+  GOOGLE_AUTH_URL,
   MIN_PASSWORD_LENGTH,
 } from "../../constants/constants";
 import { Role } from "../../model/api/Role";
@@ -32,6 +38,7 @@ import {
   RegisterLinkContainer,
   RegisterLinkSpan,
 } from "./Register.styles";
+import { GoogleButton } from "../login/Login.styles";
 
 const roles: Role[] = Object.keys(Role).map(
   (key) => Role[key as keyof typeof Role]
@@ -53,9 +60,21 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [selectedRole, setSelectedRole] = useState<number>(2);
 
+  const reCaptchaSiteKey: string | undefined = import.meta.env
+    .VITE_RECAPTCHA_SITE_KEY;
+  const [reCaptchaToken, setReCaptchaToken] = useState<string | null>(null);
+
+  // useEffect(() => {
+  //   console.log("reCaptchaToken: ", reCaptchaToken);
+  // }, [reCaptchaToken]);
+
+  function onGoogleLoginClick() {
+    window.location.href = GOOGLE_AUTH_URL;
+  }
+
   const onRegisterClicked = useCallback(async () => {
     try {
-      const result = await AuthApi.signUp(registerRequest);
+      const result = await AuthApi.signUp(reCaptchaToken, registerRequest);
 
       saveTokenToLocaleStorage(result.data);
 
@@ -64,12 +83,17 @@ export default function Register() {
       );
       userModifier({ ...decodedAccessToken });
 
+      // setReCaptchaToken(null);
       navigate("/");
     } catch (error: any) {
       let message: string;
-
       if (error.response && error.response.status === 400) {
-        message = "Incorrect user data provide";
+        message = "Incorrect user data provided";
+      } else if (
+        error.response.status === 401 &&
+        error.response.data.message === "Captcha verification failed"
+      ) {
+        message = "Captcha verification failed";
       } else if (error.response.status === 401) {
         message = "User with such e-mail aready exists";
       } else {
@@ -80,7 +104,7 @@ export default function Register() {
         autoClose: CLOSE_TIME,
       });
     }
-  }, [registerRequest, navigate, userModifier]);
+  }, [reCaptchaToken, registerRequest, userModifier, navigate]);
 
   useEffect(() => {
     setIsEmailValid(validateEmailRFC2822(registerRequest.email));
@@ -239,15 +263,26 @@ export default function Register() {
               ))}
             </TextField>
           </Box>
+          <ReCAPTCHA
+            sitekey={reCaptchaSiteKey!}
+            onChange={(token) => setReCaptchaToken(token)}
+            hl="en"
+            size="normal"
+          />
           <Button
             variant="contained"
             color="primary"
             onClick={onRegisterClicked}
-            disabled={!isRequestValid}
+            disabled={!(isRequestValid && reCaptchaToken)}
+            // disabled={!isRequestValid}
             sx={{ width: "120px" }}
           >
             Sign up
           </Button>
+          <GoogleButton disabled={false} onClick={() => onGoogleLoginClick()}>
+            {" "}
+            Sign up with Google
+          </GoogleButton>
           <RegisterLinkContainer>
             <RegisterLink>
               Already have an account?
