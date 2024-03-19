@@ -1,4 +1,4 @@
-package com.example.ideas.security.captcha;
+package com.x250.authenticationservice.captcha;
 
 import lombok.Data;
 

@@ -1,11 +1,10 @@
-package com.example.ideas.security.captcha;
+package com.x250.authenticationservice.captcha;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
 import java.util.regex.Pattern;
 
 @Service
@@ -16,7 +15,7 @@ public class RecaptchaService {
     private static final String GOOGLE_RECAPTCHA_VERIFY_URL =
             "https://www.google.com/recaptcha/api/siteverify";
 
-    private static Pattern RESPONSE_PATTERN = Pattern.compile("[A-Za-z0-9_-]+");
+    private static final Pattern RESPONSE_PATTERN = Pattern.compile("[A-Za-z0-9_-]+");
 
     private final RestTemplate restTemplate;
 
