@@ -23,3 +23,11 @@ export const PlantCardsContainer = styled.div`
   flex-wrap: wrap;
   gap: 16px;
 `;
+
+export const LoaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 30vh;
+`;

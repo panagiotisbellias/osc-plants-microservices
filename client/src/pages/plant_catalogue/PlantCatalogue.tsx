@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import SearchPlants from "../../components/search-plant/SearchPlants";
 import { Plant } from "../../model/Plant";
 import {
+  LoaderContainer,
   PlantCatalogueMainContainerStyle,
   SearchBackgroundContainer,
   SearchPlantsContainer,
@@ -20,6 +21,10 @@ export default function PlantCatalogue() {
   const { currentUser } = useContext(UserContext);
   const [plants, setPlants] = useState<Plant[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // const switchLoading = (loading: boolean) => {
+  //   setIsLoading(loading);
+  // }
 
   const updatePlants = (foundPlants: Plant[]) => {
     setPlants(foundPlants);
@@ -62,11 +67,15 @@ export default function PlantCatalogue() {
     <PlantCatalogueMainContainerStyle>
       <SearchBackgroundContainer>
         <SearchPlantsContainer>
-          <SearchPlants updatePlants={updatePlants} />
+          <SearchPlants updatePlants={updatePlants} /* switchLoading={switchLoading} */ setIsLoading={setIsLoading} />
         </SearchPlantsContainer>
       </SearchBackgroundContainer>
-      <Loader />
+
       <SearchResultsContainer>
+        {isLoading && 
+        <LoaderContainer>
+          <Loader />
+        </LoaderContainer> }
         {plants.map((plant) => (
           <SinglePlant
             key={plant.id}

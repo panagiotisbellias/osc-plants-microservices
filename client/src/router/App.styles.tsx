@@ -12,7 +12,7 @@ const loaderAnimation = keyframes`
 `;
 
 export const Loader = styled.div`
-  --d: 22px;
+  --d: 32px;
   width: 4px;
   height: 4px;
   border-radius: 50%;

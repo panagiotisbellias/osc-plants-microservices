@@ -38,3 +38,11 @@ export const SearchResultsContainer = styled.div`
   justify-content: center;
   gap: 8px;
 `;
+
+export const LoaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 30vh;
+`;

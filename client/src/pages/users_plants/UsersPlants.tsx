@@ -6,13 +6,16 @@ import { UserContext } from "../../context/UserContext";
 import { CLOSE_TIME } from "../../constants/constants";
 import SingleUsersPlant from "../../components/single_users_plant/SingleUsersPlant";
 import {
+  LoaderContainer,
   PlantCardsContainer,
   PlantCardsMainContainerStyle,
 } from "./UsersPlants.styles";
+import { Loader } from "../../router/App.styles";
 
 export default function PlantCards() {
   const { currentUser } = useContext(UserContext);
   const [usersPlants, setUsersPlants] = useState<UsersPlant[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   function sortUsersPlants(plants: UsersPlant[]) {
     plants.sort((a, b) => {
@@ -54,6 +57,7 @@ export default function PlantCards() {
   const getUsersPlants = useCallback(async () => {
     try {
       if (currentUser?.id) {
+        setIsLoading(true);
         const usersPlantsResponse = await UsersPlantApi.getUsersPlants(
           currentUser?.id
         );
@@ -69,6 +73,7 @@ export default function PlantCards() {
           needsWater: plantsToWater.includes(plant.id),
         }));
         sortUsersPlants(updatedUserPlants);
+        setIsLoading(false);
         // setUsersPlants(updatedUserPlants);
       }
     } catch (error) {
@@ -76,6 +81,7 @@ export default function PlantCards() {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: CLOSE_TIME,
       });
+      setIsLoading(false);
     }
   }, [currentUser?.id]);
 
@@ -88,6 +94,10 @@ export default function PlantCards() {
   return (
     <PlantCardsMainContainerStyle>
       <PlantCardsContainer>
+      {isLoading && 
+        <LoaderContainer>
+          <Loader />
+        </LoaderContainer> }
         {usersPlants.map((usersPlant) => (
           <SingleUsersPlant
             key={usersPlant.id}

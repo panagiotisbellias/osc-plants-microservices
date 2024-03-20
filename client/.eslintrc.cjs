@@ -34,4 +34,10 @@ module.exports = {
     "no-console": 0,
     // "prefer-default-export": 0,
   },
+  "prettier/prettier": [
+    "error",
+    {
+      "endOfLine": "auto"
+    }
+  ]
 };

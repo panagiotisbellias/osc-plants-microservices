@@ -10,16 +10,18 @@ import { CLOSE_TIME } from "../../constants/constants";
 
 interface SearchPlantsProps {
   updatePlants: (foundPlants: Plant[]) => void;
+  //switchLoading: (loading: boolean) => void;
+  setIsLoading: React.Dispatch<React.SetStateAction<any>>;
 }
 
-export default function SearchPlants({ updatePlants }: SearchPlantsProps) {
+export default function SearchPlants({ updatePlants, /* switchLoading */ setIsLoading }: SearchPlantsProps) {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  // const [plants, setPlants] = useState<Plant[]>([]);
   const [shouldSearch, setShouldSearch] = useState<boolean>(false);
 
   const searchPlantsByName = useCallback(async (searchName: string) => {
     try {
-      //setIsLoading(true);
+      //switchLoading(true);
+      setIsLoading(true);
       const response = await PlantApi.searchPlantsByName(searchName);
       updatePlants(response.data);
       // console.log("response.data", response.data);
@@ -28,7 +30,7 @@ export default function SearchPlants({ updatePlants }: SearchPlantsProps) {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: CLOSE_TIME,
       });
-      //setIsLoading(false);
+    
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
