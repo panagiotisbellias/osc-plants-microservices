@@ -28,16 +28,12 @@ export default function User() {
   const onDeleteClick = useCallback(async () => {
     try {
       if (currentUser?.id) {
-        // await UserApi.deleteUserById(currentUser?.id);
-        const response = await UserApi.deleteUserById("xxxxx");
+        // const response = await UserApi.deleteUserById(currentUser?.id);
+        const response = await UserApi.deleteUserById(currentUser.id);
         if (
-          response.data !==
+          response.data ===
           "Oops! Something went wrong, please try to delete user later!"
         ) {
-          localStorage.clear();
-          userModifier(null);
-          navigate("/login");
-        } else {
           toast.error(
             "Oops! Something went wrong, please try to delete user later!",
             {
@@ -45,6 +41,20 @@ export default function User() {
               autoClose: CLOSE_TIME,
             }
           );
+        } else if (response.data.includes("not found in database")) {
+          console.log("response.data: ", response.data);
+          toast.error(`User ${currentUser.id} not found in database`, {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: CLOSE_TIME,
+          });
+        } else {
+          localStorage.clear();
+          userModifier(null);
+          navigate("/login");
+          toast.success(response.data, {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: CLOSE_TIME,
+          });
         }
       }
     } catch (error: any) {

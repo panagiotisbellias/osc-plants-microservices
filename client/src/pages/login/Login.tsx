@@ -176,8 +176,11 @@ export default function Login() {
           >
             Sign In
           </Button>
-          <GoogleButton disabled={false}> Sign in with Google</GoogleButton>
-          <div
+          <GoogleButton onClick={() => onGoogleLoginClick()} disabled={false}>
+            {" "}
+            Sign in with Google
+          </GoogleButton>
+          {/* <div
             style={{
               display: "inline-block",
               backgroundColor: "white",
@@ -191,7 +194,7 @@ export default function Login() {
           </Button>
           <Button variant="outlined">
             <MySvgIcon />
-          </Button>
+          </Button> */}
           <LoginLinkContainer>
             <LoginLink>
               Do not have an account yet?
