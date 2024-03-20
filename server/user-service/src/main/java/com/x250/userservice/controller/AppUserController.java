@@ -45,19 +45,26 @@ public class AppUserController {
     @ResponseStatus(HttpStatus.OK)
     @CircuitBreaker(name = "users_plant", fallbackMethod = "fallbackMethod")
     @TimeLimiter(name = "users_plant")
-    @Retry(name = "users_plant" )
-    public CompletableFuture<String> deleteUser(@PathVariable String id) throws EntityNotFoundException {
+    @Retry(name = "users_plant")
+    public CompletableFuture<String> deleteUser(@PathVariable String id) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 return appUserService.deleteUser(id);
-            } catch (EntityNotFoundException e) {
-                throw new RuntimeException(e);
+            } catch (RuntimeException e) {
+                throw new RuntimeException(e.getMessage());
             }
         });
     }
 
-    public CompletableFuture<String> fallbackMethod(String id, RuntimeException runtimeException){
+    public CompletableFuture<String> fallbackMethod(String id, RuntimeException ex) {
+        if (ex.getMessage().equals("User " + id + " not found in database")) {
+            return CompletableFuture.supplyAsync(() -> ex.getMessage());
+        }
         return CompletableFuture.supplyAsync(() -> "Oops! Something went wrong, please try to delete user later!");
     }
+//
+//    public CompletableFuture<String> fallbackMethod(String id, RuntimeException runtimeException){
+//        return CompletableFuture.supplyAsync(() -> "Oops! Something went wrong, please try to delete user later!");
+//    }
 
 }

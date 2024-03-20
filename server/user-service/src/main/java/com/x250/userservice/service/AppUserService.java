@@ -42,23 +42,23 @@ public class AppUserService {
         return appUserDTOMapper.apply(appUserRepository.save(appUser));
     }
 
-    public String deleteUser(String id) throws EntityNotFoundException {
+    public String deleteUser(String id) {
 
         Observation inventoryServiceObservation = Observation.createNotStarted("users-plant-service-lookup",
                 this.observationRegistry);
         inventoryServiceObservation.lowCardinalityKeyValue("call", "users-plant-service");
         return inventoryServiceObservation.observe(() -> {
 
-
             boolean successfullyDeletedUsersPlants = deleteAllUsersPlants(id);
 
             if (successfullyDeletedUsersPlants) {
-//            AppUser appUser = appUserRepository.findById(id)
-//                    .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
-//
-//            appUserRepository.delete(appUser);
+                AppUser appUser = appUserRepository.findById(id)
+                        .orElseThrow(() -> new RuntimeException("User " + id + " not found in database"));
+
+                appUserRepository.delete(appUser);
                 return "User deleted successfully";
             }
+
             return "User " + id + " not found";
 
         });
@@ -92,5 +92,6 @@ public class AppUserService {
     public AppUserResponseDTO getUserById(String id) throws EntityNotFoundException {
         return appUserDTOMapper.apply(appUserRepository
                 .findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found in DB")));    }
+                .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found in DB")));
+    }
 }
