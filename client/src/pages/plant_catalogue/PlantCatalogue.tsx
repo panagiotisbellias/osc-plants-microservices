@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import SearchPlants from "../../components/search-plant/SearchPlants";
 import { Plant } from "../../model/Plant";
 import {
+  InfoContainer,
   LoaderContainer,
   PlantCatalogueMainContainerStyle,
   SearchBackgroundContainer,
@@ -16,20 +17,25 @@ import UsersPlantApi from "../../api/UsersPlantApi";
 import { CLOSE_TIME } from "../../constants/constants";
 import SinglePlant from "../../components/single_plant/SinglePlant";
 import { Loader } from "../../router/App.styles";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 
 export default function PlantCatalogue() {
   const { currentUser } = useContext(UserContext);
   const [plants, setPlants] = useState<Plant[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [shouldDisplayNotFound, setShouldDisplayNotFound] =
+    useState<boolean>(false);
 
-  // const switchLoading = (loading: boolean) => {
-  //   setIsLoading(loading);
-  // }
-
-  const updatePlants = (foundPlants: Plant[]) => {
+  const updatePlants = (
+    foundPlants: Plant[],
+    shouldDisplayNotFound: boolean
+  ) => {
     setPlants(foundPlants);
     setIsLoading(false);
+    setShouldDisplayNotFound(shouldDisplayNotFound);
   };
+  // roślinka not found - można użyć jak wyszukiwarka nic nie znajdzie
+  // https://perenual.com/storage/image/upgrade_access.jpg
 
   const addUsersPlant = useCallback(
     async (chosenPlantId: string) => {
@@ -67,15 +73,74 @@ export default function PlantCatalogue() {
     <PlantCatalogueMainContainerStyle>
       <SearchBackgroundContainer>
         <SearchPlantsContainer>
-          <SearchPlants updatePlants={updatePlants} /* switchLoading={switchLoading} */ setIsLoading={setIsLoading} />
+          <SearchPlants
+            updatePlants={updatePlants}
+            setIsLoading={setIsLoading}
+          />
         </SearchPlantsContainer>
       </SearchBackgroundContainer>
 
       <SearchResultsContainer>
-        {isLoading && 
-        <LoaderContainer>
-          <Loader />
-        </LoaderContainer> }
+        {isLoading && (
+          <LoaderContainer>
+            <Loader />
+          </LoaderContainer>
+        )}
+        {shouldDisplayNotFound && (
+          <InfoContainer>
+            <Paper
+              sx={{
+                backgroundColor: "rgba(255, 255, 255, 0.6)",
+                borderRadius: "10px",
+                padding: "20px",
+                width: "350px",
+              }}
+            >
+              <Stack
+                direction="column"
+                spacing={4}
+                alignItems="center"
+                mt="36px"
+              >
+                <Box
+                  sx={{
+                    position: "relative",
+                    width: "300px",
+                    height: "300px",
+                  }}
+                >
+                  <img
+                    src="../../public/plant-svgrepo-com.svg"
+                    width="280px"
+                    style={{ position: "absolute" }}
+                  />
+                  <img
+                    src="../../not-found-16-svgrepo-com.svg"
+                    width="300px"
+                    style={{ zIndex: "+5", position: "absolute" }}
+                  />
+                </Box>
+                <Typography variant="h4">No plants found</Typography>
+              </Stack>
+            </Paper>
+          </InfoContainer>
+        )}
+        {!shouldDisplayNotFound && !plants.length && !isLoading && (
+          <InfoContainer>
+            <Paper
+              sx={{
+                backgroundColor: "rgba(255, 255, 255, 0.6)",
+                borderRadius: "10px",
+                padding: "20px",
+              }}
+            >
+              <Stack direction="column" spacing={4} alignItems="center">
+                <img src="../../public/plant-svgrepo-com.svg" width="300px" />
+                <Typography variant="h4">Search for Your plants</Typography>
+              </Stack>
+            </Paper>
+          </InfoContainer>
+        )}
         {plants.map((plant) => (
           <SinglePlant
             key={plant.id}

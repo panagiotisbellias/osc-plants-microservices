@@ -7,5 +7,6 @@ export default class PlantApi {
       params: { name: searchName },
     });
 }
-
-// sk-yyjM65eee55d0e0404529
+// API do roślin
+// https://perenual.com/api/species-list?key=sk-yyjM65eee55d0e0404529&indoor=1&page=1
+// key=sk-yyjM65eee55d0e0404529

@@ -51,7 +51,7 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
         if(userOptional.isPresent()){
             appUser = userOptional.get();
             //TODO check provider if equals
-            appUser = update(appUser, oAuth2UserInfo);
+            appUser = update(appUser, oAuth2UserInfo, userRequest);
         } else {
             appUser = register(userRequest, oAuth2UserInfo);
         }
@@ -63,7 +63,6 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
         AppUser appUser = new AppUser();
 
         appUser.setProvider(AuthProvider.valueOf(userRequest.getClientRegistration().getRegistrationId()));
-
         appUser.setProviderId(oAuth2UserInfo.getId());
         appUser.setUsername(oAuth2UserInfo.getName());
         appUser.setEmail(oAuth2UserInfo.getEmail());
@@ -74,10 +73,14 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
         return userRepository.save(appUser);
     }
 
-    private AppUser update(AppUser appUser, OAuth2UserInfo oAuth2UserInfo) {
+    private AppUser update(AppUser appUser, OAuth2UserInfo oAuth2UserInfo, OAuth2UserRequest userRequest) {
         //TODO verify if name and url not null
         appUser.setUsername(oAuth2UserInfo.getName());
         appUser.setImageUrl(oAuth2UserInfo.getImageUrl());
+        // needed when user logs in first by username and password without OAuth2
+        appUser.setProvider(AuthProvider.valueOf(userRequest.getClientRegistration().getRegistrationId()));
+        appUser.setProviderId(oAuth2UserInfo.getId());
+        appUser.setEmailVerified(true);
 
         return userRepository.save(appUser);
     }

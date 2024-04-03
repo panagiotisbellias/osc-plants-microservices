@@ -198,7 +198,6 @@ services:
       - notifications-db
       - users-plant-service
 
-  ## React application
   react-app:
     build: ./client/.
     container_name: react-app

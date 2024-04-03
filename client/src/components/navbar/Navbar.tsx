@@ -1,9 +1,10 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { toast } from "react-toastify";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {
+  LinkBox,
   LinkGroup,
-  LogoutLinkButton,
   NavbarContainer,
   NavbarLink,
   NavbarLinks,
@@ -11,7 +12,15 @@ import {
 
 import { UserContext } from "../../context/UserContext";
 
-import { ACCESS_TOKEN, CLOSE_TIME } from "../../constants/constants";
+import {
+  ACCESS_TOKEN,
+  CLOSE_TIME,
+  COLOR_1,
+  COLOR_2,
+  COLOR_3,
+  COLOR_4,
+} from "../../constants/constants";
+import { Avatar, Box, Button, Paper, Typography } from "@mui/material";
 
 export default function Navbar() {
   // const navigate = useNavigate();
@@ -37,50 +46,90 @@ export default function Navbar() {
 
   return (
     <>
-      <NavbarContainer>
-        <NavbarLinks>
-          <LinkGroup>
-            <NavbarLink
-              style={{
-                textDecoration:
-                  location.pathname === "/plants" ? "underline" : "none",
+      <Paper
+        sx={{
+          backgroundColor: COLOR_3,
+          width: "300px",
+          height: "90vh",
+          minHeight: "500px",
+          borderRadius: "10px",
+          position: "absolute",
+          top: "30px",
+          left: "30px",
+        }}
+      >
+        <NavbarContainer>
+          <NavbarLinks>
+            <Box
+              sx={{
+                // backgroundColor: "purple",
+                width: "90%",
+                margin: "-50px",
               }}
-              to="/plants"
             >
-              Add Plants
-            </NavbarLink>
-            {currentUser && (
-              <NavbarLink
-                style={{
-                  textDecoration:
-                    location.pathname === "/" ? "underline" : "none",
+              <Avatar
+                // alt="Remy Sharp"
+                src={currentUser?.imageUrl}
+                sx={{ width: 100, height: 100 }}
+              />
+              <Typography variant="h5" sx={{ color: "silver" }}>
+                Welcome
+              </Typography>
+              <Box
+                sx={{
+                  backgroundColor:
+                    location.pathname === "/user" ? COLOR_3 : COLOR_1,
                 }}
-                to="/"
               >
-                My plants
-              </NavbarLink>
-            )}
-          </LinkGroup>
-          <LinkGroup>
-            {currentUser && (
-              <LogoutLinkButton onClick={handleOnLogoutClick}>
-                Logout
-              </LogoutLinkButton>
-            )}
-            {currentUser && (
-              <NavbarLink
+                {currentUser && (
+                  <NavbarLink to="/user">{currentUser.username}</NavbarLink>
+                )}
+              </Box>
+            </Box>
+
+            <LinkGroup>
+              <LinkBox
                 style={{
-                  textDecoration:
-                    location.pathname === "/user" ? "underline" : "none",
+                  backgroundColor:
+                    location.pathname === "/plants" ? COLOR_3 : COLOR_1,
                 }}
-                to="/user"
               >
-                Profile
-              </NavbarLink>
+                <NavbarLink to="/plants">Add Plants</NavbarLink>
+              </LinkBox>
+              <LinkBox
+                style={{
+                  backgroundColor:
+                    location.pathname === "/" ? COLOR_3 : COLOR_1,
+                }}
+              >
+                {currentUser && <NavbarLink to="/">My Plants</NavbarLink>}
+              </LinkBox>
+              <LinkBox
+                style={{
+                  backgroundColor:
+                    location.pathname === "/chat" ? COLOR_3 : COLOR_1,
+                }}
+              >
+                {currentUser && (
+                  <NavbarLink to="/">Chat with friends</NavbarLink>
+                )}
+              </LinkBox>
+            </LinkGroup>
+            {currentUser && (
+              <Box sx={{ width: "90%" }}>
+                <Button
+                  variant="text"
+                  startIcon={<ExitToAppIcon fontSize="large" />}
+                  onClick={handleOnLogoutClick}
+                  size="large"
+                >
+                  logout
+                </Button>
+              </Box>
             )}
-          </LinkGroup>
-        </NavbarLinks>
-      </NavbarContainer>
+          </NavbarLinks>
+        </NavbarContainer>
+      </Paper>
       <Outlet />
     </>
   );

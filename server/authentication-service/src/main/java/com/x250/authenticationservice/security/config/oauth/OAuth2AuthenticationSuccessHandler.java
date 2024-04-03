@@ -66,7 +66,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", userPrincipal.getId());
-        claims.put("username", userPrincipal.getUsername());
+        claims.put("username", userPrincipal.getName()); // error
         claims.put("imageUrl", userPrincipal.getAttributes().get("picture"));
         claims.put("role", "USER");
 

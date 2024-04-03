@@ -24,7 +24,7 @@ public class MessageQueueService {
         log.info("Received Notification for Plant: {}", plantWateringEvent.usersPlantId());
     }
 
-    private static UsersPlantToWater mapToUsersPlantToWater(PlantWateringEvent plantWateringEvent) {
+    private UsersPlantToWater mapToUsersPlantToWater(PlantWateringEvent plantWateringEvent) {
         return UsersPlantToWater.builder()
                 .usersPlantId(plantWateringEvent.usersPlantId())
                 .plantName(plantWateringEvent.plantName())

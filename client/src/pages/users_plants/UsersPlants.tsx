@@ -6,11 +6,13 @@ import { UserContext } from "../../context/UserContext";
 import { CLOSE_TIME } from "../../constants/constants";
 import SingleUsersPlant from "../../components/single_users_plant/SingleUsersPlant";
 import {
+  InfoContainer,
   LoaderContainer,
   PlantCardsContainer,
   PlantCardsMainContainerStyle,
 } from "./UsersPlants.styles";
 import { Loader } from "../../router/App.styles";
+import { Paper, Stack, Typography } from "@mui/material";
 
 export default function PlantCards() {
   const { currentUser } = useContext(UserContext);
@@ -94,19 +96,37 @@ export default function PlantCards() {
   return (
     <PlantCardsMainContainerStyle>
       <PlantCardsContainer>
-      {isLoading && 
-        <LoaderContainer>
-          <Loader />
-        </LoaderContainer> }
-        {usersPlants.map((usersPlant) => (
-          <SingleUsersPlant
-            key={usersPlant.id}
-            usersPlant={usersPlant}
-            updateNextWatering={updateNextWatering}
-            removeUsersPlant={removeUsersPlant}
-          />
-        ))}
+        {isLoading && (
+          <LoaderContainer>
+            <Loader />
+          </LoaderContainer>
+        )}
+        {usersPlants.length > 0 &&
+          usersPlants.map((usersPlant) => (
+            <SingleUsersPlant
+              key={usersPlant.id}
+              usersPlant={usersPlant}
+              updateNextWatering={updateNextWatering}
+              removeUsersPlant={removeUsersPlant}
+            />
+          ))}
       </PlantCardsContainer>
+      {usersPlants.length <= 0 && !isLoading && (
+        <InfoContainer>
+          <Paper
+            sx={{
+              backgroundColor: "rgba(255, 255, 255, 0.6)",
+              borderRadius: "10px",
+              padding: "20px",
+            }}
+          >
+            <Stack direction="column" spacing={4} alignItems="center">
+              <img src="../../public/plant-svgrepo-com.svg" width="300px" />
+              <Typography variant="h4">No plants added yet...</Typography>
+            </Stack>
+          </Paper>
+        </InfoContainer>
+      )}
     </PlantCardsMainContainerStyle>
   );
 }

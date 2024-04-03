@@ -12,7 +12,7 @@ import {
 import { useCallback, useState } from "react";
 import { toast } from "react-toastify";
 import { UsersPlant } from "../../model/api/UsersPlant";
-import { CLOSE_TIME, COLOR_2 } from "../../constants/constants";
+import { CLOSE_TIME, COLOR_1, COLOR_2 } from "../../constants/constants";
 import UsersPlantApi from "../../api/UsersPlantApi";
 import { CardInfoContainer } from "./SingleUsersPlant.styles";
 
@@ -91,9 +91,9 @@ export default function SingleUsersPlant({
     <Paper
       elevation={4}
       sx={{
-        backgroundColor: COLOR_2,
+        backgroundColor: COLOR_1,
         width: "250px",
-        height: "420px",
+        height: "450px",
         borderRadius: "10px",
         display: "flex",
         alignItems: "center",
@@ -109,11 +109,11 @@ export default function SingleUsersPlant({
         />
 
         <Typography variant="h6">{usersPlant.plant.name}</Typography>
-        <Stack spacing={1} sx={{ marginTop: "8px" }}>
+        <Stack spacing={1} sx={{ marginTop: "8px", width: "200px" }}>
           <Typography variant="subtitle1">
             Water every {usersPlant.plant.wateringInterval} days
           </Typography>
-          <Typography variant="subtitle1">
+          <Typography variant="subtitle1" sx={{ wordBreak: "break-all" }}>
             {usersPlant.plant.description}
           </Typography>
 

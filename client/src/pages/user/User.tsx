@@ -1,34 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Paper, Stack, Typography } from "@mui/material";
 import { UserContext } from "../../context/UserContext";
 import UserApi from "../../api/UserApi";
+import { CLOSE_TIME, COLOR_3 } from "../../constants/constants";
 import {
-  CLOSE_TIME,
-  COLOR_1,
-  COLOR_2,
-  COLOR_5,
-} from "../../constants/constants";
+  UserInfoContainer,
+  UserInfoDetails,
+  UserMainContainerStyle,
+} from "./User.styles";
 
 export default function User() {
   const navigate = useNavigate();
   const { currentUser, userModifier } = useContext(UserContext);
+  const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
 
   const onDeleteClick = useCallback(async () => {
     try {
       if (currentUser?.id) {
-        // const response = await UserApi.deleteUserById(currentUser?.id);
         const response = await UserApi.deleteUserById(currentUser.id);
         if (
           response.data ===
@@ -73,46 +64,83 @@ export default function User() {
   }, [currentUser?.id, navigate, userModifier]);
 
   return (
-    <Box sx={{ backgroundColor: COLOR_2, width: "100%", height: "100%" }}>
-      <Card sx={{ width: 245, backgroundColor: COLOR_1 }}>
-        <CardHeader
-          avatar={
-            currentUser?.imageUrl ? (
-              <Avatar alt="Users picture" src={currentUser?.imageUrl} />
-            ) : (
-              <Avatar sx={{ bgcolor: COLOR_5 }} aria-label="recipe">
-                {currentUser?.username.charAt(0).toUpperCase()}
-              </Avatar>
-            )
-          }
-          // title="Shrimp and Chorizo Paella"
-          // subheader="September 14, 2016"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {currentUser?.username}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {currentUser?.sub}
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Role: {currentUser?.role}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small" onClick={() => onDeleteClick()}>
-            Delete me
-          </Button>
-        </CardActions>
-      </Card>
-    </Box>
-    // <>
-    //   <div>{currentUser && currentUser.username}</div>
-    //   <div>{currentUser && currentUser.sub}</div>
-    //   <div>{currentUser && currentUser.role}</div>
-    //   <div>{currentUser && currentUser.imageUrl}</div>
-    //   <div>{currentUser && currentUser.id}</div>
-    //   <button onClick={onDeleteClick}>Delete me</button>
-    // </>
+    <UserMainContainerStyle>
+      <Paper
+        sx={{
+          backgroundColor: COLOR_3,
+          width: "500px",
+          height: "90vh",
+          minHeight: "500px",
+          borderRadius: "10px",
+        }}
+      >
+        <UserInfoContainer>
+          <Typography variant="h4">User Profile</Typography>
+          <UserInfoDetails>
+            <Stack direction="column" spacing={3} mt={4}>
+              <Box>
+                <Typography variant="h6" color="text.secondary">
+                  username:
+                </Typography>
+                <Typography variant="h5" sx={{ wordBreak: "break-all" }}>
+                  {currentUser?.username}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography variant="h6" color="text.secondary">
+                  email:
+                </Typography>
+                <Typography variant="h5" sx={{ wordBreak: "break-all" }}>
+                  {currentUser?.sub}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography variant="h6" color="text.secondary">
+                  role:
+                </Typography>
+                <Typography variant="h5">{currentUser?.role}</Typography>
+              </Box>
+            </Stack>
+            <Stack
+              width="200px"
+              direction="row"
+              alignItems="center"
+              justifyContent="center"
+              gap={4}
+            >
+              {!confirmDelete && (
+                <Button
+                  size="large"
+                  color="error"
+                  sx={{ marginBottom: "36px" }}
+                  onClick={() => setConfirmDelete(true)}
+                >
+                  Delete Account
+                </Button>
+              )}
+              {confirmDelete && (
+                <Button
+                  size="large"
+                  color="error"
+                  sx={{ marginBottom: "36px" }}
+                  onClick={() => onDeleteClick()}
+                >
+                  Confirm
+                </Button>
+              )}
+              {confirmDelete && (
+                <Button
+                  size="large"
+                  sx={{ marginBottom: "36px" }}
+                  onClick={() => setConfirmDelete(false)}
+                >
+                  Cancel
+                </Button>
+              )}
+            </Stack>
+          </UserInfoDetails>
+        </UserInfoContainer>
+      </Paper>
+    </UserMainContainerStyle>
   );
 }

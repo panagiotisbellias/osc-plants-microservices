@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -9,6 +10,12 @@
     <artifactId>discovery-server</artifactId>
     <name>Archetype - discovery-server</name>
     <url>http://maven.apache.org</url>
+
+    <properties> <!-- difference tutorial, chess -->
+        <maven.compiler.source>17</maven.compiler.source> <!-- difference tutorial, chess -->
+        <maven.compiler.target>17</maven.compiler.target> <!-- difference tutorial, chess -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- difference chess -->
+    </properties>
 
     <dependencies>
         <dependency>

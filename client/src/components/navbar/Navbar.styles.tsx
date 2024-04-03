@@ -12,45 +12,53 @@ import {
 } from "../../constants/constants";
 
 export const NavbarContainer = styled.div`
-  height: ${NAVBAR_HEIGHT};
-  background-color: ${COLOR_5};
+  height: 100%;
+  // background-color: ${COLOR_5};
   display: flex;
+  flex-direction: column;
   justify-content: end;
-  // min-width: ${MIN_WIDTH};
 `;
 
 export const NavbarLinks = styled.div`
-  width: 70%;
-  height: 100%;
+  width: 100%;
+  height: 85%;
   display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: ${COLOR_1};
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+`;
+
+export const LinkBox = styled.div`
+  // background-color: blue;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
 `;
 
 export const NavbarLink = styled(Link)`
   text-decoration: none;
-  color: ${COLOR_2};
+  color: ${COLOR_BLACK};
   font-size: 24px;
+  word-break: break-all;
 
   &:hover {
     cursor: pointer;
-    color: white;
-  }
-`;
-
-export const LogoutLinkButton = styled.span`
-  text-decoration: none;
-  color: ${COLOR_2};
-  font-size: 24px;
-
-  &:hover {
-    cursor: pointer;
-    color: ${COLOR_1};
+    color: grey;
   }
 `;
 
 export const LinkGroup = styled.div`
+  gap: 16px;
+
+  width: 90%;
+  height: 30vh;
   display: flex;
-  gap: 24px;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  // background-color: yellow;
 `;

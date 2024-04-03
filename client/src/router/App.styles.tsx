@@ -3,6 +3,14 @@ import styled, { keyframes } from "styled-components";
 export const AppContainer = styled.div`
   min-height: 100vh;
   width: 100%;
+
+  background-color: rgba(255, 255, 255, 0.3);
+  background-blend-mode: overlay;
+  background-image: url(/pexels-charlotte-may-5824877.jpg);
+  background-size: cover;
+  overflow: auto;
+
+  position: relative;
 `;
 
 const loaderAnimation = keyframes`

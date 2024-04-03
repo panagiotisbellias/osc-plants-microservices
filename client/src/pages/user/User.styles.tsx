@@ -1,20 +1,21 @@
 import styled from "styled-components";
-import { COLOR_1, COLOR_2, COLOR_3, COLOR_4 } from "../../constants/constants";
+import { COLOR_1, COLOR_2, COLOR_3, COLOR_5 } from "../../constants/constants";
 
-export const PlantCardsMainContainerStyle = styled.div`
+export const UserMainContainerStyle = styled.div`
   // background-color: ${COLOR_2};
-  // min-width: 500px;
-  width: calc(100vw - 420px);
   height: 90vh;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   min-height: 90vh;
   position: absolute;
   top: 30px;
-  left: 360px;
+  left: 390px;
   overflow-y: auto;
   margin-right: 30px;
+  width: calc(100vw - 420px);
+  min-width: 600px;
 
   /* WebKit (Chrome, Safari) scrollbar */
   &::-webkit-scrollbar {
@@ -32,33 +33,23 @@ export const PlantCardsMainContainerStyle = styled.div`
     opacity: 50%;
   }
 `;
-
-export const PlantCardsContainer = styled.div`
-  // margin-top: 32px;
-  // margin-bottom: 32px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 16px;
-`;
-
-export const InfoContainer = styled.div`
-  // margin-top: 24px;
-  // margin-bottom: 24px;
+export const UserInfoContainer = styled.div`
+  height: 100%;
+  //   background-color: ${COLOR_3};
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
+  justify-content: end;
 `;
 
-export const LoaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+export const UserInfoDetails = styled.div`
   width: 100%;
-  height: 30vh;
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: ${COLOR_1};
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 `;

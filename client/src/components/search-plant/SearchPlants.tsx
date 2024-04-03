@@ -9,28 +9,31 @@ import PlantApi from "../../api/PlantApi";
 import { CLOSE_TIME } from "../../constants/constants";
 
 interface SearchPlantsProps {
-  updatePlants: (foundPlants: Plant[]) => void;
-  //switchLoading: (loading: boolean) => void;
+  updatePlants: (foundPlants: Plant[], shouldDisplayNotFound: boolean) => void;
   setIsLoading: React.Dispatch<React.SetStateAction<any>>;
 }
 
-export default function SearchPlants({ updatePlants, /* switchLoading */ setIsLoading }: SearchPlantsProps) {
+const MIN_CHARS_TO_SEARCH: number = 3;
+
+export default function SearchPlants({
+  updatePlants,
+  setIsLoading,
+}: SearchPlantsProps) {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [shouldSearch, setShouldSearch] = useState<boolean>(false);
 
   const searchPlantsByName = useCallback(async (searchName: string) => {
     try {
-      //switchLoading(true);
       setIsLoading(true);
       const response = await PlantApi.searchPlantsByName(searchName);
-      updatePlants(response.data);
-      // console.log("response.data", response.data);
+      response.data.length > 0
+        ? updatePlants(response.data, false)
+        : updatePlants(response.data, true);
     } catch (error) {
       toast.error("An error occured when trying to connect to server", {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: CLOSE_TIME,
       });
-    
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -49,8 +52,7 @@ export default function SearchPlants({ updatePlants, /* switchLoading */ setIsLo
       setShouldSearch(false);
     }
     if (!searchTerm) {
-      updatePlants([]);
-      // onSelectedUser(null);
+      updatePlants([], false);
     }
   }, [searchTerm, debouncedSearch, shouldSearch, updatePlants]);
 
@@ -58,20 +60,19 @@ export default function SearchPlants({ updatePlants, /* switchLoading */ setIsLo
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setSearchTerm(e.target.value);
-    if (e.target.value.length > 3) {
+    if (e.target.value.length >= MIN_CHARS_TO_SEARCH) {
       setShouldSearch(true);
     }
   };
 
   const onClearClick = () => {
     setSearchTerm("");
-    updatePlants([]);
+    updatePlants([], false);
   };
 
   return (
     <TextField
       color="primary"
-      // sx={{ backgroundColor: "white" }}
       fullWidth
       id="user_search_field"
       name="plants_serch_field"
@@ -94,6 +95,9 @@ export default function SearchPlants({ updatePlants, /* switchLoading */ setIsLo
             />
           </InputAdornment>
         ),
+        sx: {
+          borderRadius: "10px", // Adjust the border radius as desired
+        },
       }}
     />
   );

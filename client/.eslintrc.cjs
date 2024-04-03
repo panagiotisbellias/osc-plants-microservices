@@ -32,12 +32,12 @@ module.exports = {
   rules: {
     "react/react-in-jsx-scope": 0,
     "no-console": 0,
-    // "prefer-default-export": 0,
+    "prefer-default-export": 0,
   },
   "prettier/prettier": [
     "error",
     {
-      "endOfLine": "auto"
-    }
-  ]
+      endOfLine: "auto",
+    },
+  ],
 };

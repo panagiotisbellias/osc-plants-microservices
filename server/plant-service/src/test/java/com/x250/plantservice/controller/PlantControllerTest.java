@@ -131,7 +131,6 @@ class PlantControllerTest {
                 .andExpect(jsonPath("$.errorMessage").value("message"));
     }
 
-
     @Test
     void testAddPlant() throws Exception {
         when(plantService.addPlant(any(PlantCreateDTO.class))).thenReturn(mockPlantResponseDTO);

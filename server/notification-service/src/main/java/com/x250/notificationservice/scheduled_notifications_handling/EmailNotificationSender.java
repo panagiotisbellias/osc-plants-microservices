@@ -42,7 +42,7 @@ public class EmailNotificationSender {
 
     private void sendEmailNotification(UsersPlantToWater usersPlantToWater) {
         String from = "emailsender666666@gmail.com";
-        String recipientEmail = "emailsender666666@gmail.com";//usersPlantToWater.getAppUserEmail();
+        String recipientEmail = usersPlantToWater.getAppUserEmail(); //"emailsender666666@gmail.com";
         String subject = "Water " + usersPlantToWater.getPlantName();
         String text = "Your plant " + usersPlantToWater.getPlantName() + " needs some water";
         emailSender.sendEmail(from, recipientEmail, subject, text);
