@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useContext, useState } from "react";
 import { toast } from "react-toastify";
-import SearchPlants from "../../components/search-plant/SearchPlants";
+import SearchPlants from "../../components/search_plant/SearchPlants";
 import { Plant } from "../../model/Plant";
 import {
   InfoContainer,
@@ -132,9 +132,16 @@ export default function PlantCatalogue() {
                 backgroundColor: "rgba(255, 255, 255, 0.6)",
                 borderRadius: "10px",
                 padding: "20px",
+                width: "350px",
+                height: "380px",
               }}
             >
-              <Stack direction="column" spacing={4} alignItems="center">
+              <Stack
+                direction="column"
+                spacing={4}
+                alignItems="center"
+                height="380px"
+              >
                 <img src="../../public/plant-svgrepo-com.svg" width="300px" />
                 <Typography variant="h4">Search for Your plants</Typography>
               </Stack>

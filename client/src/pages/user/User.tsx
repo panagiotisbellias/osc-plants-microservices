@@ -77,7 +77,7 @@ export default function User() {
         <UserInfoContainer>
           <Typography variant="h4">User Profile</Typography>
           <UserInfoDetails>
-            <Stack direction="column" spacing={3} mt={4}>
+            <Stack direction="column" spacing={3} mt={4} width="85%">
               <Box>
                 <Typography variant="h6" color="text.secondary">
                   username:

@@ -9,6 +9,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import PlantCatalogue from "../pages/plant_catalogue/PlantCatalogue";
 import User from "../pages/user/User";
 import RedirectHandler from "../pages/redirect_handler/RedirectHandler";
+import Chat from "../pages/chat/Chat";
 
 function AppRouter() {
   return (
@@ -24,6 +25,7 @@ function AppRouter() {
         <Route index element={<PlantCards />} />
         <Route path="plants" element={<PlantCatalogue />} />
         <Route path="user" element={<User />} />
+        <Route path="chat" element={<Chat />} />
       </Route>
 
       <Route
