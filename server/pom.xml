@@ -25,6 +25,7 @@
         <module>api-gateway</module>
         <module>authentication-service</module>
         <module>notification-service</module>
+        <module>chat-service</module>
     </modules>
 
     <properties>

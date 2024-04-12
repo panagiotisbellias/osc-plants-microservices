@@ -38,8 +38,7 @@ public class SecurityConfiguration {
                                 .pathMatchers(
                                         "/eureka/**",
                                         "/api/v1/auth/**",
-//                                        "/api/v1/auth/register",
-//                                        "/api/v1/auth/authenticate",
+                                        "/stomp/**",
 
                                         "/auth/**",
                                         "/oauth2/**"
@@ -54,7 +53,7 @@ public class SecurityConfiguration {
                                 .authenticated())
                 .addFilterAt(authFilter, SecurityWebFiltersOrder.AUTHENTICATION)
 //
-                ;
+        ;
 
         return serverHttpSecurity.build();
     }
