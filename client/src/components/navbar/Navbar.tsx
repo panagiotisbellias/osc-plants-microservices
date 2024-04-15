@@ -16,9 +16,7 @@ import {
   ACCESS_TOKEN,
   CLOSE_TIME,
   COLOR_1,
-  COLOR_2,
   COLOR_3,
-  COLOR_4,
 } from "../../constants/constants";
 import { Avatar, Box, Button, Paper, Typography } from "@mui/material";
 
@@ -62,13 +60,11 @@ export default function Navbar() {
           <NavbarLinks>
             <Box
               sx={{
-                // backgroundColor: "purple",
                 width: "90%",
                 margin: "-50px",
               }}
             >
               <Avatar
-                // alt="Remy Sharp"
                 src={currentUser?.imageUrl}
                 sx={{ width: 100, height: 100 }}
               />
@@ -110,9 +106,7 @@ export default function Navbar() {
                     location.pathname === "/chat" ? COLOR_3 : COLOR_1,
                 }}
               >
-                {currentUser && (
-                  <NavbarLink to="/">Chat with friends</NavbarLink>
-                )}
+                {currentUser && <NavbarLink to="/chat">Chat</NavbarLink>}
               </LinkBox>
             </LinkGroup>
             {currentUser && (
