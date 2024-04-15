@@ -8,10 +8,8 @@ import java.util.List;
 
 public interface NotificationRepository extends JpaRepository<UsersPlantToWater, Long> {
 
-    List<UsersPlantToWater> findByAppUserIdAndReceivedByUserFalse(String id);
+    void removeByEmailSentIsTrueOrNotificationDateBefore(LocalDateTime data);
 
-    void removeByReceivedByUserIsTrueOrNotificationDateBefore(LocalDateTime data);
-
-    List<UsersPlantToWater> findByEmailSentIsFalseAndReceivedByUserIsFalse();
+    List<UsersPlantToWater> findByEmailSentIsFalse();
 
 }

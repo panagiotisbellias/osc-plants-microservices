@@ -32,9 +32,12 @@ public class MessageQueueService {
                 .appUserEmail(plantWateringEvent.uppUserEmail())
                 .notificationDate(plantWateringEvent.notificationDate())
                 .emailSent(false)
-                .receivedByUser(false)
                 .build();
     }
 
-
 }
+//        Narzędzia do podglądu Kafki
+//        https://github.com/provectus/kafka-ui
+//        https://kafkaide.com/
+//        https://www.reddit.com/r/apachekafka/comments/x9sov2/a_list_of_gui_tools_for_working_with_apache_kafka/
+//        https://github.com/redpanda-data/console

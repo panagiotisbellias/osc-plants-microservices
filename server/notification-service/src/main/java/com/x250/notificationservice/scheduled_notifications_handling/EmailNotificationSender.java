@@ -20,7 +20,7 @@ public class EmailNotificationSender {
 
     public void send() {
         List<UsersPlantToWater> usersPlantsToWater =
-                notificationRepository.findByEmailSentIsFalseAndReceivedByUserIsFalse();
+                notificationRepository.findByEmailSentIsFalse();
 
         System.out.println("Database checked !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         usersPlantsToWater.forEach(n -> System.out.println(n + "\n"));

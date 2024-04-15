@@ -1,10 +1,5 @@
 import styled from "styled-components";
-import {
-  COLOR_1,
-  COLOR_2,
-  COLOR_3,
-  COLOR_BLACK,
-} from "../../constants/constants";
+import { COLOR_1, COLOR_2, COLOR_BLACK } from "../../constants/constants";
 
 export const ChatMainContainerStyle = styled.div`
   //   background-color: ${COLOR_2};
@@ -51,7 +46,6 @@ export const ChatChannel = styled.div`
   text-decoration: none;
   color: ${COLOR_BLACK};
   width: 100%;
-  //   word-break: break-all;
 
   &:hover {
     cursor: pointer;

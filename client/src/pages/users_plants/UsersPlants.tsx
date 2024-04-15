@@ -64,25 +64,27 @@ export default function PlantCards() {
           currentUser?.id
         );
         const newUserPlants: UsersPlant[] = usersPlantsResponse.data;
-        const plantsToWaterResponse = await UsersPlantApi.getNotifications(
-          currentUser?.id
-        );
-        // const plantsToWater: number[] = plantsToWaterResponse.data;
-        const plantsToWater: number[] = [8, 10];
 
-        const updatedUserPlants = newUserPlants.map((plant) => ({
-          ...plant,
-          needsWater: plantsToWater.includes(plant.id),
-        }));
+        const updatedUserPlants = newUserPlants.map((plant) => {
+          let nextWateringDate = new Date(plant.nextWatering);
+          let currentDate = new Date();
+          nextWateringDate.setHours(0, 0, 0, 0);
+          currentDate.setHours(0, 0, 0, 0);
+          return {
+            ...plant,
+            needsWater: nextWateringDate <= currentDate,
+          };
+        });
         sortUsersPlants(updatedUserPlants);
-        setIsLoading(false);
-        // setUsersPlants(updatedUserPlants);
+        setUsersPlants(updatedUserPlants);
       }
     } catch (error) {
       toast.error("something went wrong with the server!", {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: CLOSE_TIME,
       });
+      setIsLoading(false);
+    } finally {
       setIsLoading(false);
     }
   }, [currentUser?.id]);

@@ -16,11 +16,11 @@ public class WateringChecker {
 
     List<UsersPlant> findPlantsToWater(LocalDateTime currentTime) {
 
-        return usersPlantRepository.findByNextWateringIsBefore(currentTime);
+        return usersPlantRepository.findByNotificationDateIsBefore(currentTime);
     }
 
     void moveNextWateringOneDayAhead(UsersPlant usersPlant) {
-        usersPlant.setNextWatering(LocalDateTime.now().plusDays(1L));
+        usersPlant.setNotificationDate(LocalDateTime.now().plusDays(1L));
         usersPlantRepository.save(usersPlant);
     }
 

@@ -10,7 +10,8 @@ import java.util.List;
 @Repository
 public interface UsersPlantRepository extends JpaRepository<UsersPlant, Long> {
 
-    List<UsersPlant> findByNextWateringIsBefore(LocalDateTime currentTime);
+    List<UsersPlant> findByNotificationDateIsBefore(LocalDateTime currentTime);
+
     List<UsersPlant> findByAppUserId(String id);
 
 }

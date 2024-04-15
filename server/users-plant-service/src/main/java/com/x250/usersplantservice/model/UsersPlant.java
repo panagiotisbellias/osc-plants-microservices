@@ -25,9 +25,10 @@ public class UsersPlant {
     private AppUser appUser;
 
     @ManyToOne
-//            (cascade = CascadeType.PERSIST)
     @JoinColumn(name = "plant_id")
     private Plant plant;
+
+    private LocalDateTime notificationDate;
 
     private LocalDateTime nextWatering;
 }

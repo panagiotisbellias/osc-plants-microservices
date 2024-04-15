@@ -19,6 +19,24 @@ services:
     command: -p 5431
     restart: always
 
+  # Postgres db for chat service
+  chat-db:
+    container_name: chat-db
+    image: postgres
+    environment:
+      POSTGRES_DB: ${CHAT_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: /data/postgres
+    volumes:
+      - /data/postgres
+    expose:
+      - "5433"
+    ports:
+      - "5433:5433"
+    command: -p 5433
+    restart: always
+
   ## Postgres db for notification service
   notifications-db:
     container_name: notifications-db
@@ -99,8 +117,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       LOGGING_LEVEL_ORG_SPRINGFRAMEWORK: TRACE
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://discovery-server:8761/eureka # to be deleted
-#      SPRING_CLOUD_GATEWAY_ROUTES_5_URI: http://discovery-server:8761
-#      SPRING_CLOUD_GATEWAY_ROUTES_6_URI: http://discovery-server:8761
+      #      SPRING_CLOUD_GATEWAY_ROUTES_5_URI: http://discovery-server:8761
+      #      SPRING_CLOUD_GATEWAY_ROUTES_6_URI: http://discovery-server:8761
       MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans # to be deleted
       SERVER_PORT: 8080 # to be deleted
     depends_on:
@@ -119,7 +137,7 @@ services:
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SERVER_PORT: 8080 # to be deleted
-#      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_REDIRECTURI: http://simple-auth.me/oauth2/callback/{registrationId}
+      #      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_REDIRECTURI: http://simple-auth.me/oauth2/callback/{registrationId}
       SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_REDIRECTURI: http://localhost:8080/oauth2/callback/{registrationId} # to be deleted
       SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID: ${GOOGLE_OAUTH_CLIENT_ID}
       SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET: ${GOOGLE_OAUTH_CLIENT_SECRET}
@@ -136,6 +154,21 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: docker
       SPRING_DATASOURCE_URL: jdbc:postgresql://plant-db:5431/${PLANTS_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://discovery-server:8761/eureka # to be deleted
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans # to be deleted
+      SERVER_PORT: 8080 # to be deleted
+    depends_on:
+      - authentication-service
+
+  ## Chat service - UWAGA porty
+  chat-service:
+    image: asynoradzki/chat-service
+    container_name: chat-service
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://chat-db:5433/${CHAT_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://discovery-server:8761/eureka # to be deleted

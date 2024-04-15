@@ -37,6 +37,7 @@ public class UsersPlantService {
                 .appUser(appUser)
                 .plant(plant)
                 .nextWatering(LocalDateTime.now().plusDays(plant.getWateringInterval()))
+                .notificationDate(LocalDateTime.now().plusDays(plant.getWateringInterval())) // added notifications date
                 .build();
 
         return usersPlantDTOMapper.apply(usersPlantRepository.save(usersPlant));
@@ -64,6 +65,7 @@ public class UsersPlantService {
         Plant plant = ObjectProvider.getObjectFromDB(usersPlant.getPlant().getId(), plantRepository);
 
         usersPlant.setNextWatering(LocalDateTime.now().plusDays(plant.getWateringInterval()));
+        usersPlant.setNotificationDate(LocalDateTime.now().plusDays(plant.getWateringInterval()));
 
         return usersPlantDTOMapper.apply(usersPlantRepository.save(usersPlant));
     }
