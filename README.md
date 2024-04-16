@@ -3,6 +3,16 @@
 ## About The Project
 The Plants App allows users to search for plants in database and add them to their user profile to be remainded about plant care routines. New users can register in the app by Google or login/password depending on preferences. Additional feature is live chat on one of the available topics.
 
+
+## Registration
+<img  src="https://github.com/asynoradzki/plants-microservices/blob/main/client/public/login.gif"  alt="github"  width="800px"  height="450px">
+
+## Adding Plant
+<img  src="https://github.com/asynoradzki/plants-microservices/blob/main/client/public/addplant.gif"  alt="github"  width="800px"  height="450px">
+
+## Chat with other people 
+<img  src="https://github.com/asynoradzki/plants-microservices/blob/main/client/public/chat.gif"  alt="github"  width="800px"  height="450px">
+
 ## Technical Features
 Frontend:
 - Vite
