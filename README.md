@@ -11,7 +11,8 @@ Frontend:
 - MUI
 - Styled Components
 - React Router
-- hooks: useContext, useState, useEffect, useCallback, useMemo, useRef
+- hooks: useContext, useState, useEffect, useCallback, useMemo, useRef, useNavigate...
+- custom hooks
 - Lodash - debounce
 - Google reCaptcha
 
