@@ -75,19 +75,19 @@ Other Technologies:
 ### In Docker: 
 
 - Clone the Repository.
-- Create accounts for Google OAuth2.0 and Google reCaptcha and define the following environment variables:
+- Create accounts for Google OAuth2.0 and Google reCaptcha and define the following environment variables in you operating system:
 
   - ${GOOGLE_OAUTH_CLIENT_ID}
   - ${GOOGLE_OAUTH_CLIENT_SECRET}
   - ${GOOGLE_RECAPTCHA_SECRET}
   - ${GOOGLE_RECAPTCHA_SITE_KEY}
 
-- Provide google email and password (the account must be configured to enable sending e-mails from an application) and assign them to the following environment variables:
+- Provide google email and password (the account must be configured to enable sending e-mails from an application) and assign them to the following environment variables in you operating system:
 
   - ${MAIL_SENDER_USERNAME}
   - ${MAIL_SENDER_PASSWORD}
 
-- Finally create three PostgreSQL databases and also assign them to the following environment variables:
+- Finally create three PostgreSQL databases and also assign them to the following environment variables in you operating system:
 
   - ${CHAT_DB}
   - ${NOTIFICATIONS_DB}
