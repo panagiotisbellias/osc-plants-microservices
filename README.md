@@ -7,6 +7,9 @@ The Plants App allows users to search for plants in database and add them to the
 ## Registration
 <img  src="https://github.com/asynoradzki/plants-microservices/blob/main/client/public/login.gif"  alt="github"  width="800px"  height="450px">
 
+## Login with OAuth 2.0
+<img  src="https://github.com/asynoradzki/plants-microservices/blob/main/client/public/oauth.gif"  alt="github"  width="800px"  height="450px">
+
 ## Adding Plant
 <img  src="https://github.com/asynoradzki/plants-microservices/blob/main/client/public/addplant.gif"  alt="github"  width="800px"  height="450px">
 
