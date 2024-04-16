@@ -69,7 +69,9 @@ Other Technologies:
 <a  href="https://www.docker.com/"  title="docker"><img  src="https://github.com/get-icon/geticon/raw/master/icons/docker-icon.svg"  alt="docker"  width="50px"  height="50px"></a>
 <a  href="https://trello.com/"  title="trello"><img  src="https://github.com/get-icon/geticon/raw/master/icons/trello.svg"  alt="trello"  width="50px"  height="50px"></a>
 
-## Running in Docker: 
+## Running the Application
+
+### In Docker: 
 
 - Clone the Repository.
 - Create accounts for Google OAuth2.0 and Google reCaptcha and define the following environment variables:
@@ -94,7 +96,7 @@ Other Technologies:
 
 - In the console navigate to the main plants-microservices directory and run "docker compose up" command
 
-### Running on local machine
+### On local machine
 - Clone the Repository.
 - Set up all the accounts and enviroment variables described above in the Running in Docker section.
 
