@@ -353,7 +353,7 @@ VALUES ('c17155e4-da2a-4c4f-9a5e-9ddb5de481dd', 'emailsender666666@gmail.com',
        ('f6534cfa-acb3-4367-bc06-5bfdf7caa9c2', 'krugalski@gmail.com',
         '$2a$10$lk.DIEDro0p2WrP9YapebO0r7zT1G88KD4rznH6GqSCv2MTmi.gzC', 'USER', 'susy');
 
-INSERT INTO users_plants (next_watering, user_id, plant_id)
+INSERT INTO users_plants (next_watering, notification_date, user_id, plant_id)
 VALUES
 --         ('2024-01-01 21:41:34.585887', 'c17155e4-da2a-4c4f-9a5e-9ddb5de481dd', 'f041e260-93e2-4207-9b46-2fe4f1e587e4'),
 --        ('2024-01-01 21:41:34.585887', 'c17155e4-da2a-4c4f-9a5e-9ddb5de481dd', '750cb9f5-6ea7-4c96-b5eb-872977b79d68'),
@@ -372,5 +372,5 @@ VALUES
 --        ('2024-01-01 21:41:34.585887', 'f6534cfa-acb3-4367-bc06-5bfdf7caa9c2', 'e7d5f8ca-54d7-499e-a9bd-dfc01eee1836'),
 --        ('2024-01-01 21:41:34.585887', 'f6534cfa-acb3-4367-bc06-5bfdf7caa9c2', 'd1441d41-76f2-49be-99aa-7ba5abc85fd3'),
 --        ('2024-01-01 21:41:34.585887', 'f6534cfa-acb3-4367-bc06-5bfdf7caa9c2', '662f3828-4121-4b4c-8588-f82ccbf405e2'),
-       ('2024-01-01 21:41:34.585887', 'f6534cfa-acb3-4367-bc06-5bfdf7caa9c2', '766a7de3-eaa8-439b-a53d-6197fe3ec8dc'),
-       ('2024-01-01 21:41:34.585887', 'f6534cfa-acb3-4367-bc06-5bfdf7caa9c2', '02468fb0-ce1f-4bbd-988b-5eeaad759637');
+       ('2024-01-01 21:41:34.585887', '2024-01-01 21:41:34.585887', 'f6534cfa-acb3-4367-bc06-5bfdf7caa9c2', '766a7de3-eaa8-439b-a53d-6197fe3ec8dc'),
+       ('2024-01-01 21:41:34.585887', '2024-01-01 21:41:34.585887', 'f6534cfa-acb3-4367-bc06-5bfdf7caa9c2', '02468fb0-ce1f-4bbd-988b-5eeaad759637');

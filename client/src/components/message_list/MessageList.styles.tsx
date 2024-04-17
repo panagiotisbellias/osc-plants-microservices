@@ -4,6 +4,7 @@ export const MessagesContainer = styled.div`
   //   background-color: lightgrey;
   height: 100%;
   width: 85%;
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
   gap: 24px;

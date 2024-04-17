@@ -1,6 +1,6 @@
 import { SvgIcon } from "@mui/material";
 
-export default function MySvgIcon(props) {
+export default function MySvgIcon(props: any) {
   return (
     <SvgIcon {...props}>
       <svg

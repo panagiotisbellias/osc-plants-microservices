@@ -20,6 +20,5 @@ public class UsersPlantToWater {
     private String appUserId;
     private String appUserEmail;
     private Boolean emailSent;
-    private Boolean receivedByUser;
 
 }

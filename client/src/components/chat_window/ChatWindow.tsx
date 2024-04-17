@@ -1,18 +1,16 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { Button, Paper, Stack, TextField, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import SockJS from "sockjs-client";
-import { Stomp } from "@stomp/stompjs";
+import { CompatClient } from "@stomp/stompjs";
 import { toast } from "react-toastify";
-
 import { Message } from "../../model/socket/Message";
 import { UserContext } from "../../context/UserContext";
-import { ACCESS_TOKEN, CLOSE_TIME, COLOR_3 } from "../../constants/constants";
+import { CLOSE_TIME, COLOR_3 } from "../../constants/constants";
 import ChatApi from "../../api/ChatApi";
-import { sendMessageToChosenRoom } from "../../message/MessageSender";
 import MessageList from "../message_list/MessageList";
 import { ChatContainer, ChatInfoDetails } from "../../pages/chat/Chat.styles";
 import { Loader } from "../../router/App.styles";
+import useSocketClient from "../../hooks/useSocketClient";
 
 interface ChatWindowProps {
   chosenChannel: string;
@@ -25,6 +23,7 @@ export default function ChatWindow({ chosenChannel }: ChatWindowProps) {
   const [messageList, setMessageList] = useState<Message[]>([]);
   const [messageInput, setMessageInput] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const client = useRef<CompatClient>(useSocketClient());
 
   const getMessages = useCallback(async (channel: string) => {
     try {
@@ -46,40 +45,49 @@ export default function ChatWindow({ chosenChannel }: ChatWindowProps) {
   useEffect(() => {
     if (chosenChannel) {
       getMessages(chosenChannel);
-      const sock = new SockJS(`${import.meta.env.VITE_API_URL}/stomp`, {
-        Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
-      });
-      const client = Stomp.over(() => sock);
-      client.debug = function () {};
+      client.current.debug = function () {};
+
       const connectCallback = () => {
-        client.subscribe(`/topic/messages/${chosenChannel}`, (payload) => {
-          const response = JSON.parse(payload.body);
-          if (response && chosenChannel) {
-            if (response.room === chosenChannel) {
-              setMessageList((prev) => [...prev, response]);
+        client.current.subscribe(
+          `/topic/messages/${chosenChannel}`,
+          (payload) => {
+            const response = JSON.parse(payload.body);
+            if (response && chosenChannel) {
+              if (response.room === chosenChannel) {
+                setMessageList((prev) => [...prev, response]);
+              }
             }
           }
-        });
+        );
       };
 
-      client.connect({}, connectCallback);
+      client.current.connect({}, connectCallback);
 
       return () => {
-        client.disconnect(() => {});
+        client.current.disconnect(() => {});
       };
     }
   }, [chosenChannel]);
 
+  const sendMessageToChosenRoom = (room: string, message: string) => {
+    if (client.current.connected) {
+      client.current.send(
+        `/app/messages/${room}`,
+        {},
+        JSON.stringify({
+          room,
+          username: currentUser!.username,
+          email: currentUser!.sub,
+          imageUrl: currentUser!.imageUrl,
+          message,
+        })
+      );
+    }
+  };
+
   const sendMessage = () => {
     if (currentUser && messageInput.length > 0 && chosenChannel) {
-      console.log("messageInput.length", messageInput.length);
-      sendMessageToChosenRoom(
-        chosenChannel,
-        currentUser.username,
-        currentUser.sub,
-        currentUser.imageUrl,
-        messageInput
-      );
+      sendMessageToChosenRoom(chosenChannel, messageInput);
       setMessageInput("");
     }
   };

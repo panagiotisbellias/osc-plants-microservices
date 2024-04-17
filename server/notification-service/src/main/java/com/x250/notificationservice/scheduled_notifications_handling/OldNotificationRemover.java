@@ -20,7 +20,7 @@ public class OldNotificationRemover {
     @Transactional
     public void remove() {
         notificationRepository
-                .removeByReceivedByUserIsTrueOrNotificationDateBefore(LocalDateTime.now().minusHours(notificationsToRemoveAge));
+                .removeByEmailSentIsTrueOrNotificationDateBefore(LocalDateTime.now().minusHours(notificationsToRemoveAge));
     }
 
 }
