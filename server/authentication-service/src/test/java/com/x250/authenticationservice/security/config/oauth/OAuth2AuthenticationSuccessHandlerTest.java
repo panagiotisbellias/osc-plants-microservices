@@ -7,6 +7,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -17,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.Authentication;
 
 import java.io.IOException;
-//import java.util.List;
+import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 class OAuth2AuthenticationSuccessHandlerTest {
@@ -43,8 +44,8 @@ class OAuth2AuthenticationSuccessHandlerTest {
     @Mock
     UserPrincipal principal;
 
-//    @Mock
-//    List<String> urisList;
+    @Mock
+    List<String> urisList;
 
     @Test
     void testConstructor() {
@@ -103,15 +104,16 @@ class OAuth2AuthenticationSuccessHandlerTest {
         Mockito.verify(principal, Mockito.times(0)).getEmail();
     }
 
-//    @Test
-//    void testDetermineTargetUrlUnauthorizedRedirectURI() {
-//        Cookie cookie = Mockito.mock(Cookie.class);
-//        Mockito.when(cookie.getName()).thenReturn("redirect_uri");
-//        Mockito.when(cookie.getValue()).thenReturn("value");
+    @Disabled("Should be mocked the URI")
+    @Test
+    void testDetermineTargetUrlUnauthorizedRedirectURI() {
+        Cookie cookie = Mockito.mock(Cookie.class);
+        Mockito.when(cookie.getName()).thenReturn("redirect_uri");
+        Mockito.when(cookie.getValue()).thenReturn("value");
 
-//        Cookie[] cookies = new Cookie[]{cookie};
-//        Mockito.when(request.getCookies()).thenReturn(cookies);
-//        oAuth2AuthenticationSuccessHandler.determineTargetUrl(request, response, authentication);
-//    }
+        Cookie[] cookies = new Cookie[]{cookie};
+        Mockito.when(request.getCookies()).thenReturn(cookies);
+        oAuth2AuthenticationSuccessHandler.determineTargetUrl(request, response, authentication);
+    }
 
 }

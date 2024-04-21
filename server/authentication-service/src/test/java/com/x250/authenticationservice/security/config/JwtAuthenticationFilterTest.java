@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -95,19 +96,20 @@ class JwtAuthenticationFilterTest {
         Mockito.verifyNoInteractions(userDetailsService);
     }
 
-//    @Test
-//    void testDoFilterIntervalUserEmailNotNull() throws ServletException, IOException {
-//        Mockito.when(request.getServletPath()).thenReturn("servlet path");
-//        Mockito.when(request.getHeader("Authorization")).thenReturn("Bearer header");
-//        Mockito.when(jwtService.extractUsername("header")).thenReturn("user email");
-//
-//        jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
-//        Mockito.verify(request).getServletPath();
-//        Mockito.verify(filterChain).doFilter(request, response);
-//        Mockito.verify(request).getHeader("Authorization");
-//        Mockito.verify(jwtService).extractUsername("header");
-//        Mockito.verifyNoInteractions(userDetailsService);
-//        Mockito.verifyNoMoreInteractions(jwtService);
-//    }
+    @Disabled("SecurityContext should be mocked")
+    @Test
+    void testDoFilterIntervalUserEmailNotNull() throws ServletException, IOException {
+        Mockito.when(request.getServletPath()).thenReturn("servlet path");
+        Mockito.when(request.getHeader("Authorization")).thenReturn("Bearer header");
+        Mockito.when(jwtService.extractUsername("header")).thenReturn("user email");
+
+        jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
+        Mockito.verify(request).getServletPath();
+        Mockito.verify(filterChain).doFilter(request, response);
+        Mockito.verify(request).getHeader("Authorization");
+        Mockito.verify(jwtService).extractUsername("header");
+        Mockito.verifyNoInteractions(userDetailsService);
+        Mockito.verifyNoMoreInteractions(jwtService);
+    }
 
 }

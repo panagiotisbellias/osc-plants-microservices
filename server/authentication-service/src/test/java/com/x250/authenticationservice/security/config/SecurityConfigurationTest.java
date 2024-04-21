@@ -21,7 +21,7 @@ import org.springframework.security.config.annotation.web.configurers.ExceptionH
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @ExtendWith(MockitoExtension.class)
-public class SecurityConfigurationTest {
+class SecurityConfigurationTest {
 
     @InjectMocks
     SecurityConfiguration securityConfiguration;
