@@ -1,7 +1,6 @@
 package com.x250.authenticationservice.security.config.oauth.user;
 
 import com.x250.authenticationservice.exception.OAuth2AuthenticationProcessingException;
-import com.x250.authenticationservice.model.AuthProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

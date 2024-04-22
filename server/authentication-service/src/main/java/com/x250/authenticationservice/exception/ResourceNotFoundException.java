@@ -1,7 +1,9 @@
 package com.x250.authenticationservice.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class ResourceNotFoundException extends RuntimeException {
     private String resourceName;

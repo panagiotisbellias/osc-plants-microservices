@@ -1,7 +1,6 @@
 package com.x250.authenticationservice.exception_handling;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
@@ -22,7 +21,7 @@ public class DelegatedAccessDeniedHandler implements AccessDeniedHandler {
     }
 
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
         HashMap<Object, Object> responseBody = new HashMap<>();
         responseBody.put(HttpStatus.FORBIDDEN.toString(), accessDeniedException.getMessage());
 

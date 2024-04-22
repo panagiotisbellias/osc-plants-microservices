@@ -1,6 +1,5 @@
 package com.x250.authenticationservice.security.config.oauth;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,7 +31,7 @@ class OAuth2AuthenticationFailureHandlerTest {
     }
 
     @Test
-    void testOnAuthenticationFailure() throws ServletException, IOException {
+    void testOnAuthenticationFailure() throws IOException {
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
         HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
         AuthenticationException exception = Mockito.mock(AuthenticationException.class);

@@ -2,7 +2,6 @@ package com.x250.authenticationservice.security.config.oauth;
 
 import com.x250.authenticationservice.security.UserPrincipal;
 import com.x250.authenticationservice.security.config.JwtService;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -49,7 +48,7 @@ class OAuth2AuthenticationSuccessHandlerTest {
     }
 
     @Test
-    void testOnAuthenticationSuccess() throws ServletException, IOException {
+    void testOnAuthenticationSuccess() throws IOException {
         Mockito.when(authentication.getPrincipal()).thenReturn(principal);
         oAuth2AuthenticationSuccessHandler.onAuthenticationSuccess(request, response, authentication);
 
@@ -61,7 +60,7 @@ class OAuth2AuthenticationSuccessHandlerTest {
     }
 
     @Test
-    void testOnAuthenticationSuccessResponseCommitted() throws ServletException, IOException {
+    void testOnAuthenticationSuccessResponseCommitted() throws IOException {
         Mockito.when(authentication.getPrincipal()).thenReturn(principal);
         Mockito.when(response.isCommitted()).thenReturn(true);
         oAuth2AuthenticationSuccessHandler.onAuthenticationSuccess(request, response, authentication);

@@ -8,6 +8,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Objects;
+
 @ExtendWith(MockitoExtension.class)
 class MessageControllerTest {
 
@@ -25,7 +27,7 @@ class MessageControllerTest {
 
     @Test
     void testGetMessages() {
-        Assertions.assertTrue(messageController.getMessages("room").getBody().isEmpty());
+        Assertions.assertTrue(Objects.requireNonNull(messageController.getMessages("room").getBody()).isEmpty());
     }
 
 }

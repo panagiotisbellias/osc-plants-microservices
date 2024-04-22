@@ -1,7 +1,6 @@
 package com.x250.authenticationservice.exception_handling;
 
 import io.jsonwebtoken.io.IOException;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class DelegatedAuthenticationEntryPoint implements AuthenticationEntryPoi
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
-      throws IOException, ServletException {
+      throws IOException {
         resolver.resolveException(request, response, null, authException);
     }
 }

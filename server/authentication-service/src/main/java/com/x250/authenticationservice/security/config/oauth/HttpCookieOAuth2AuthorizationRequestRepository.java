@@ -29,7 +29,7 @@ public class HttpCookieOAuth2AuthorizationRequestRepository implements Authoriza
 
         CookieUtils.addCookie(response, OAUTH2_AUTH_REQUEST_COOKIE_NAME, CookieUtils.serialize(authorizationRequest), COOKIE_EXPIRE_SEC);
         String redirectUriAfterLogin = request.getParameter(REDIRECT_URI_COOKIE_NAME);
-        if (redirectUriAfterLogin != null && !redirectUriAfterLogin.equals("")){
+        if (redirectUriAfterLogin != null && !redirectUriAfterLogin.isEmpty()){
             CookieUtils.addCookie(response, REDIRECT_URI_COOKIE_NAME, redirectUriAfterLogin, COOKIE_EXPIRE_SEC);
         }
     }

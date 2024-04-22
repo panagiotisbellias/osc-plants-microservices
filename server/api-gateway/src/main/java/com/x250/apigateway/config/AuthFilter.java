@@ -22,7 +22,6 @@ import reactor.core.scheduler.Schedulers;
 @RequiredArgsConstructor
 public class AuthFilter implements WebFilter {
 
-    private final RouteValidator routeValidator;
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
@@ -30,7 +29,7 @@ public class AuthFilter implements WebFilter {
     public Mono<Void> filter(@NonNull ServerWebExchange exchange, @NonNull WebFilterChain chain) {
 
         try {
-            if (!routeValidator.isSecured.test(exchange.getRequest())) {
+            if (!RouteValidator.isSecured.test(exchange.getRequest())) {
                 return chain.filter(exchange);
             }
 
@@ -61,7 +60,7 @@ public class AuthFilter implements WebFilter {
     private Authentication getAuthentication(String token) {
         String userEmail = jwtService.extractUsername(token);
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-        return new UsernamePasswordAuthenticationToken(// we creat object of type UsernamePassword this object is needed by Spring and by SecurityContextHolder in order to update our SecurityContext
+        return new UsernamePasswordAuthenticationToken(// we create object of type UsernamePassword this object is needed by Spring and by SecurityContextHolder in order to update our SecurityContext
                 userDetails,
                 null,
                 userDetails.getAuthorities()

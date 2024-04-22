@@ -27,7 +27,6 @@ public class PlantController {
 
     /**
      * If data not valid 400 status code returned and message in the console
-     * @param plantCreateDTO
      */
 
     @GetMapping("/name")

@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.web.cors.reactive.CorsWebFilter;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -17,8 +16,6 @@ import org.springframework.web.cors.reactive.CorsWebFilter;
 public class SecurityConfiguration {
 
     private final AuthFilter authFilter;
-
-    private final CorsWebFilter corsWebFilter;
 
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity serverHttpSecurity) {

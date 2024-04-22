@@ -32,7 +32,7 @@ class AuthFilterTest {
 
     @Test
     void testConstructor() {
-        AuthFilter authFilter = new AuthFilter(routeValidator, jwtService, userDetailsService);
+        AuthFilter authFilter = new AuthFilter(jwtService, userDetailsService);
         Assertions.assertInstanceOf(AuthFilter.class, authFilter);
     }
 

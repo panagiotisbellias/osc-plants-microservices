@@ -70,7 +70,7 @@ class UsersPlantServiceTest {
     }
 
     @Test
-    void testDeleteAllUsersPlant() throws InterruptedException {
+    void testDeleteAllUsersPlant() {
         usersPlantService.deleteAllUsersPlant("id");
         Mockito.verify(usersPlantRepository).findByAppUserId("id");
         Mockito.verify(usersPlantRepository).deleteAllInBatch(ArgumentMatchers.anyList());

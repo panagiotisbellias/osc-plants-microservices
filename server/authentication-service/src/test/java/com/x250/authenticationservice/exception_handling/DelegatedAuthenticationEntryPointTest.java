@@ -1,6 +1,5 @@
 package com.x250.authenticationservice.exception_handling;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Test;
@@ -31,7 +30,7 @@ class DelegatedAuthenticationEntryPointTest {
     AuthenticationException authException;
 
     @Test
-    void testCommence() throws ServletException {
+    void testCommence() {
         delegatedAuthenticationEntryPoint.commence(request, response, authException);
         Mockito.verify(resolver).resolveException(request, response, null, authException);
     }

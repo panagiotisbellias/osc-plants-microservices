@@ -38,7 +38,7 @@ class UsersPlantControllerTest {
     }
 
     @Test
-    void testDeleteAllUsersPlants() throws InterruptedException {
+    void testDeleteAllUsersPlants() {
         Assertions.assertTrue(usersPlantController.deleteAllUsersPlants("id"));
     }
 

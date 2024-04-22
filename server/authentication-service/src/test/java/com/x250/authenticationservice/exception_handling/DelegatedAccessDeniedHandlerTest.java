@@ -1,7 +1,6 @@
 package com.x250.authenticationservice.exception_handling;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Assertions;
@@ -35,7 +34,7 @@ class DelegatedAccessDeniedHandlerTest {
     }
 
     @Test
-    void testHandle() throws ServletException, IOException {
+    void testHandle() throws IOException {
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
         HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
         AccessDeniedException accessDeniedException = Mockito.mock(AccessDeniedException.class);
