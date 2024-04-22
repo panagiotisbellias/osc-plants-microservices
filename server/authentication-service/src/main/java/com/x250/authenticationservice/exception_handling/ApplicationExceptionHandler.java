@@ -16,6 +16,8 @@ import java.util.Map;
 @RestControllerAdvice
 public class ApplicationExceptionHandler {
 
+    private static final String MAP_KEY = "message";
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(
@@ -34,7 +36,7 @@ public class ApplicationExceptionHandler {
     public Map<String, String> handleCaptchaVerificationExceptions(
             CaptchaVerificationException ex) {
         Map<String, String> errors = new HashMap<>();
-        errors.put("message", ex.getMessage());
+        errors.put(MAP_KEY, ex.getMessage());
         return errors;
     }
 
@@ -43,7 +45,7 @@ public class ApplicationExceptionHandler {
     public Map<String, String> handleResourceNotFoundExceptions(
             ResourceNotFoundException ex) {
         Map<String, String> errors = new HashMap<>();
-        errors.put("message", ex.getMessage());
+        errors.put(MAP_KEY, ex.getMessage());
         return errors;
     }
 
@@ -52,7 +54,7 @@ public class ApplicationExceptionHandler {
     public Map<String, String> handleBadRequestExceptions(
             BadRequestException ex) {
         Map<String, String> errors = new HashMap<>();
-        errors.put("message", ex.getMessage());
+        errors.put(MAP_KEY, ex.getMessage());
         return errors;
     }
 

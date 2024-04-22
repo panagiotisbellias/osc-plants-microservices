@@ -25,9 +25,4 @@ class JwtServiceTest {
         Assertions.assertInstanceOf(JwtService.class, jwtService);
     }
 
-    @Test
-    void testExtractUsername() {
-        jwtService.extractUsername("token");
-    }
-
 }

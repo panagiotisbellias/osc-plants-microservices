@@ -8,7 +8,7 @@ import java.util.Map;
 public class OAuth2UserInfoFactory {
 
     public static OAuth2UserInfo get(String registrationId, Map<String, Object> attributes){
-        if (AuthProvider.google.name().equalsIgnoreCase(registrationId)){
+        if (AuthProvider.GOOGLE.name().equalsIgnoreCase(registrationId)){
             return new GoogleOAuth2UserInfo(attributes);
         } else {
             throw new OAuth2AuthenticationProcessingException(registrationId + " is not supported");
