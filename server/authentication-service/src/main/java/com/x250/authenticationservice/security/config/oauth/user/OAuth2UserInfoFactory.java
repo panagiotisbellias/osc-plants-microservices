@@ -7,6 +7,10 @@ import java.util.Map;
 
 public class OAuth2UserInfoFactory {
 
+    private OAuth2UserInfoFactory() {
+        // empty constructor
+    }
+
     public static OAuth2UserInfo get(String registrationId, Map<String, Object> attributes){
         if (AuthProvider.GOOGLE.name().equalsIgnoreCase(registrationId)){
             return new GoogleOAuth2UserInfo(attributes);

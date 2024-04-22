@@ -9,7 +9,6 @@ import com.x250.authenticationservice.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +33,6 @@ public class AuthenticationController {
         boolean isCaptchaValid = recaptchaService.isValidCaptcha(ip, recaptchaResponse);
 
         if(!isCaptchaValid) {
-//            return ResponseEntity.status(HttpStatus.SC_UNAUTHORIZED).body("Captcha verification failed");
             throw new CaptchaVerificationException("Captcha verification failed"); // CustomRuntimeException
         }
         return ResponseEntity.ok(service.register(registerRequest));

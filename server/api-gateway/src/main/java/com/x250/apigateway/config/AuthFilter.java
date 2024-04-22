@@ -8,7 +8,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
-import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
@@ -25,7 +24,6 @@ public class AuthFilter implements WebFilter {
 
     private final RouteValidator routeValidator;
     private final JwtService jwtService;
-//    private final ReactiveUserDetailsService reactiveUserDetailsService;
     private final UserDetailsService userDetailsService;
 
     @Override

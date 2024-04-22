@@ -28,7 +28,7 @@ public class Message {
 
     private String imageUrl;
 
-    String message;
+    String content;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

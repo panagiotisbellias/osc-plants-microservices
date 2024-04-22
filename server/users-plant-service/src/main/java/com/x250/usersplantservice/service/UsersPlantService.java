@@ -50,10 +50,6 @@ public class UsersPlantService {
     }
 
     public void deleteAllUsersPlant(String id) throws InterruptedException {
-//        log.info("Wait Started");
-//        Thread.sleep(10000);
-//        log.info("Wait Ended");
-
         List<UsersPlant> usersPlantList = usersPlantRepository.findByAppUserId(id);
 
         usersPlantRepository.deleteAllInBatch(usersPlantList);

@@ -47,13 +47,7 @@ public class AppUserController {
     @TimeLimiter(name = "users_plant")
     @Retry(name = "users_plant")
     public CompletableFuture<String> deleteUser(@PathVariable String id) {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                return appUserService.deleteUser(id);
-            } catch (RuntimeException e) {
-                throw new RuntimeException(e.getMessage());
-            }
-        });
+        return CompletableFuture.supplyAsync(() -> appUserService.deleteUser(id));
     }
 
     public CompletableFuture<String> fallbackMethod(String id, RuntimeException ex) {
@@ -62,9 +56,5 @@ public class AppUserController {
         }
         return CompletableFuture.supplyAsync(() -> "Oops! Something went wrong, please try to delete user later!");
     }
-//
-//    public CompletableFuture<String> fallbackMethod(String id, RuntimeException runtimeException){
-//        return CompletableFuture.supplyAsync(() -> "Oops! Something went wrong, please try to delete user later!");
-//    }
 
 }

@@ -28,7 +28,7 @@ class MessageTest {
         Assertions.assertEquals("username", message.getUsername());
         Assertions.assertEquals("email", message.getEmail());
         Assertions.assertEquals("image url", message.getImageUrl());
-        Assertions.assertEquals("message", message.getMessage());
+        Assertions.assertEquals("message", message.getContent());
         Assertions.assertInstanceOf(Date.class, message.getCreatedDateTime());
     }
 
@@ -40,7 +40,7 @@ class MessageTest {
         message.setUsername("username");
         message.setEmail("email");
         message.setImageUrl("image url");
-        message.setMessage("message");
+        message.setContent("message");
         message.setCreatedDateTime(date);
 
         Assertions.assertEquals(0L, message.getId());
@@ -48,7 +48,7 @@ class MessageTest {
         Assertions.assertEquals("username", message.getUsername());
         Assertions.assertEquals("email", message.getEmail());
         Assertions.assertEquals("image url", message.getImageUrl());
-        Assertions.assertEquals("message", message.getMessage());
+        Assertions.assertEquals("message", message.getContent());
         Assertions.assertInstanceOf(Date.class, message.getCreatedDateTime());
     }
 

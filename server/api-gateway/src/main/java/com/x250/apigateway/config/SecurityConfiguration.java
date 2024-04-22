@@ -58,19 +58,4 @@ public class SecurityConfiguration {
         return serverHttpSecurity.build();
     }
 
-
-//    @Bean
-//    public ServerAccessDeniedHandler accessDeniedHandler() {
-//        return ((exchange, denied) ->
-//                Mono.defer(()-> Mono.just(exchange.getResponse().setComplete().then()))
-//                        .then(Mono.fromRunnable(() -> exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN))));
-//    }
-//
-//    @Bean
-//    public ServerAuthenticationEntryPoint authEntryPoint() {
-//        return ((exchange, event) ->
-//                Mono.defer(()-> Mono.just(exchange.getResponse().setComplete().then()))
-//                        .then(Mono.fromRunnable(() -> exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED))));
-//    }
-
 }
