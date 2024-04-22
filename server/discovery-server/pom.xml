@@ -11,10 +11,10 @@
     <name>Archetype - discovery-server</name>
     <url>http://maven.apache.org</url>
 
-    <properties> <!-- difference tutorial, chess -->
-        <maven.compiler.source>17</maven.compiler.source> <!-- difference tutorial, chess -->
-        <maven.compiler.target>17</maven.compiler.target> <!-- difference tutorial, chess -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- difference chess -->
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>

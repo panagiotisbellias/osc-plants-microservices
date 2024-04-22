@@ -29,16 +29,15 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>  <!-- difference tutorial, chess -->
-        <maven.compiler.target>17</maven.compiler.target>  <!-- difference tutorial, chess -->
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <java.version>17</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  <!-- difference chess -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-cloud.version>2023.0.0</spring-cloud.version>
-<!--  wersja użyta w tutorialu   2021.0.2-->
     </properties>
 
     <dependencyManagement>
-        <dependencies>  <!-- difference tutorial, chess -->
+        <dependencies>
             <dependency>
                 <groupId>org.testcontainers</groupId>
                 <artifactId>testcontainers-bom</artifactId>
