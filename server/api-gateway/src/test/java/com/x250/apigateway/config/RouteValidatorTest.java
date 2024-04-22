@@ -4,8 +4,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 
+import java.net.URI;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -23,7 +26,9 @@ class RouteValidatorTest {
 
     @Test
     void testIsSecured() {
-        Assertions.assertInstanceOf(Predicate.class, routeValidator.isSecured);
+        ServerHttpRequest request = Mockito.mock(ServerHttpRequest.class);
+        Mockito.when(request.getURI()).thenReturn(URI.create("/api/v1/auth/register"));
+        Assertions.assertFalse(routeValidator.isSecured.test(request));
     }
 
 }

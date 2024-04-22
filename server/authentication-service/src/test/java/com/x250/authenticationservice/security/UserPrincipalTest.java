@@ -37,7 +37,7 @@ class UserPrincipalTest {
         UserPrincipal userPrincipal = new UserPrincipal("id", "name", "email", "password", authorities);
         Assertions.assertEquals("id", userPrincipal.getId());
         Assertions.assertEquals("name", userPrincipal.getName());
-        Assertions.assertEquals("email", userPrincipal.getUsername());
+        Assertions.assertEquals("email", userPrincipal.getEmail());
         Assertions.assertEquals("password", userPrincipal.getPassword());
         Assertions.assertNull(userPrincipal.getAttributes());
     }
