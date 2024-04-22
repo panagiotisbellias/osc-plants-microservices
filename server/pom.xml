@@ -70,38 +70,38 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <version>3.2.1</version>
-                <configuration>
-                    <from>
-                        <image>eclipse-temurin:17.0.4.1_1-jre</image>
-                    </from>
-                    <to>
-                        <image>registry.hub.docker.com/asynoradzki/${project.artifactId}</image>
-                    </to>
-                    <!-- Dodaj sekcję extraDirectories --> <!-- difference chess -->
-                    <extraDirectories>
-                        <paths>
-                            <path>
-                                <from>${project.build.directory}/classes</from>
-                                <into>/path/in/container</into>
-                            </path>
-                        </paths>
-                    </extraDirectories>
-                    <!-- Ustaw tryb containerizing na exploded, aby śledzić zmiany w czasie rzeczywistym -->
-                    <containerizingMode>exploded</containerizingMode> <!-- difference chess -->
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>dockerBuild</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>com.google.cloud.tools</groupId>-->
+<!--                <artifactId>jib-maven-plugin</artifactId>-->
+<!--                <version>3.2.1</version>-->
+<!--                <configuration>-->
+<!--                    <from>-->
+<!--                        <image>eclipse-temurin:17.0.4.1_1-jre</image>-->
+<!--                    </from>-->
+<!--                    <to>-->
+<!--                        <image>registry.hub.docker.com/asynoradzki/${project.artifactId}</image>-->
+<!--                    </to>-->
+<!--                    &lt;!&ndash; Dodaj sekcję extraDirectories &ndash;&gt; &lt;!&ndash; difference chess &ndash;&gt;-->
+<!--                    <extraDirectories>-->
+<!--                        <paths>-->
+<!--                            <path>-->
+<!--                                <from>${project.build.directory}/classes</from>-->
+<!--                                <into>/path/in/container</into>-->
+<!--                            </path>-->
+<!--                        </paths>-->
+<!--                    </extraDirectories>-->
+<!--                    &lt;!&ndash; Ustaw tryb containerizing na exploded, aby śledzić zmiany w czasie rzeczywistym &ndash;&gt;-->
+<!--                    <containerizingMode>exploded</containerizingMode> &lt;!&ndash; difference chess &ndash;&gt;-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>dockerBuild</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 </project>
