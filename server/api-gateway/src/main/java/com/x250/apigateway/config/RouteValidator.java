@@ -9,6 +9,10 @@ import java.util.function.Predicate;
 @Component
 public class RouteValidator {
 
+    private RouteValidator() {
+        // empty constructor
+    }
+
     public static final List<String> openEndpoints = List.of(
             "/api/v1/auth/register",
             "/api/v1/auth/authenticate",
@@ -16,7 +20,7 @@ public class RouteValidator {
             "/eureka"
     );
 
-    public Predicate<ServerHttpRequest> isSecured =
+    public static final Predicate<ServerHttpRequest> isSecured =
             serverHttpRequest -> openEndpoints.stream()
                     .noneMatch(uri -> serverHttpRequest.getURI().getPath().contains(uri));
 }

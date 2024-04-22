@@ -3,10 +3,6 @@ package com.x250.authenticationservice.dto;
 import com.x250.authenticationservice.model.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 public record RegisterRequest(
         @NotBlank(message = "username cannot be blank")

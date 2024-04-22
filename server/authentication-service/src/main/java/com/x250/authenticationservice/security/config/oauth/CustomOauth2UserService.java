@@ -42,7 +42,7 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
     private OAuth2User processOAuth2User(OAuth2UserRequest userRequest, OAuth2User oAuth2User) {
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.get(userRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
 
-        if(StringUtils.isEmpty(oAuth2UserInfo.getEmail())){
+        if(oAuth2UserInfo.getEmail().isEmpty()){
             throw new OAuth2AuthenticationProcessingException("Email not found from provider");
         }
 

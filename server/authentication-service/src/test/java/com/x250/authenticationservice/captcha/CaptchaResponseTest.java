@@ -12,11 +12,11 @@ class CaptchaResponseTest {
     void testGettersAndSetters() {
         CaptchaResponse captchaResponse = new CaptchaResponse();
         captchaResponse.setSuccess(true);
-        captchaResponse.setChallenge_ts("2022-01-01T12:00:00Z");
+        captchaResponse.setChallengeTs("2022-01-01T12:00:00Z");
         captchaResponse.setHostname("example.com");
 
         Assertions.assertTrue(captchaResponse.isSuccess());
-        Assertions.assertEquals("2022-01-01T12:00:00Z", captchaResponse.getChallenge_ts());
+        Assertions.assertEquals("2022-01-01T12:00:00Z", captchaResponse.getChallengeTs());
         Assertions.assertEquals("example.com", captchaResponse.getHostname());
     }
 

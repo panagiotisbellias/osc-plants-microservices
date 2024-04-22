@@ -23,7 +23,6 @@ public class PlantController {
     @ResponseStatus(HttpStatus.OK)
     public List<Plant> getAllPlants() {
         return plantService.getAllPlants();
-        // TODO paginacja
     }
 
     /**

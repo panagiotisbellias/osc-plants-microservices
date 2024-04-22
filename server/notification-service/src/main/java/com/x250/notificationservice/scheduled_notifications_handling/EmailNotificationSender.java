@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EmailNotificationSender {
 
-    private final int secondsToSleep = 5;
+    private static final int MILLISECONDS_TO_SLEEP = 5000;
 
     private final NotificationRepository notificationRepository;
 
@@ -33,7 +33,7 @@ public class EmailNotificationSender {
 
             System.out.println("email sent !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             try {
-                Thread.sleep(secondsToSleep * 1000);
+                Thread.sleep(MILLISECONDS_TO_SLEEP);
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             }

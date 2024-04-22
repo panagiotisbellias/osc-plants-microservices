@@ -49,7 +49,7 @@ public class UsersPlantService {
         usersPlantRepository.delete(usersPlant);
     }
 
-    public void deleteAllUsersPlant(String id) throws InterruptedException {
+    public void deleteAllUsersPlant(String id) {
         List<UsersPlant> usersPlantList = usersPlantRepository.findByAppUserId(id);
 
         usersPlantRepository.deleteAllInBatch(usersPlantList);

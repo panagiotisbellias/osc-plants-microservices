@@ -52,7 +52,7 @@ public class AppUserController {
 
     public CompletableFuture<String> fallbackMethod(String id, RuntimeException ex) {
         if (ex.getMessage().equals("User " + id + " not found in database")) {
-            return CompletableFuture.supplyAsync(() -> ex.getMessage());
+            return CompletableFuture.supplyAsync(ex::getMessage);
         }
         return CompletableFuture.supplyAsync(() -> "Oops! Something went wrong, please try to delete user later!");
     }
