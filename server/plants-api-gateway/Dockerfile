@@ -21,6 +21,6 @@ ARG DEPENDENCY=/app/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java", "-cp", "app:app/lib/*", "com.x250.apigateway.ApiGatewayApplication"]
+ENTRYPOINT ["java", "-cp", "app:app/lib/*", "com.x250.plants.api.gateway.ApiGatewayApplication"]
 
 # mvn -N wrapper:wrapper pamiętać że ta komenda musi być uruchomiona przed docker-compose up
