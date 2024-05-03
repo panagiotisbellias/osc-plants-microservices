@@ -73,9 +73,10 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
     }
 
     private AppUser update(AppUser appUser, OAuth2UserInfo oAuth2UserInfo, OAuth2UserRequest userRequest) {
-        //TODO verify if name and url not null
-        appUser.setUsername(oAuth2UserInfo.getName());
-        appUser.setImageUrl(oAuth2UserInfo.getImageUrl());
+        if (oAuth2UserInfo.getName() != null && oAuth2UserInfo.getImageUrl() != null) {
+            appUser.setUsername(oAuth2UserInfo.getName());
+            appUser.setImageUrl(oAuth2UserInfo.getImageUrl());
+        }
         // needed when user logs in first by username and password without OAuth2
         appUser.setProvider(AuthProvider.valueOf(userRequest.getClientRegistration().getRegistrationId()));
         appUser.setProviderId(oAuth2UserInfo.getId());
