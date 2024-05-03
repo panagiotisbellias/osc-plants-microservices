@@ -14,18 +14,18 @@
     <artifactId>plants-microservices</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Archetype - plants-microservices</name>
+    <name>plants-microservices</name>
     <url>http://maven.apache.org</url>
 
     <modules>
-        <module>plant-service</module>
-        <module>user-service</module>
-        <module>users-plant-service</module>
-        <module>discovery-server</module>
-        <module>api-gateway</module>
-        <module>authentication-service</module>
-        <module>notification-service</module>
-        <module>chat-service</module>
+        <module>plants-core</module>
+        <module>plants-users</module>
+        <module>plants-owners</module>
+        <module>plants-discovery</module>
+        <module>plants-api-gateway</module>
+        <module>plants-authentication</module>
+        <module>plants-notifications</module>
+        <module>plants-chat</module>
     </modules>
 
     <properties>

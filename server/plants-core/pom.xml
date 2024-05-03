@@ -7,8 +7,8 @@
         <artifactId>plants-microservices</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>plant-service</artifactId>
-    <name>Archetype - plant-service</name>
+    <artifactId>plants-core</artifactId>
+    <name>plants-core</name>
     <url>http://maven.apache.org</url>
 
     <properties>
