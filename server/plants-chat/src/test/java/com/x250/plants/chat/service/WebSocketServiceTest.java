@@ -17,7 +17,7 @@ class WebSocketServiceTest {
     @Test
     void testStringifyMessage() {
         Message message = Mockito.mock(Message.class);
-        Assertions.assertEquals("{\"id\":0,\"room\":null,\"username\":null,\"email\":null,\"imageUrl\":null,\"message\":null,\"createdDateTime\":null}", webSocketService.stringifyMessage(message));
+        Assertions.assertEquals("{\"id\":0,\"room\":null,\"username\":null,\"email\":null,\"imageUrl\":null,\"content\":null,\"createdDateTime\":null}", webSocketService.stringifyMessage(message));
     }
 
 }
