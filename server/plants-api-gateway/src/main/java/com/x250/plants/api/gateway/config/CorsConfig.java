@@ -1,7 +1,6 @@
 package com.x250.plants.api.gateway.config;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -10,14 +9,13 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
+@Slf4j
 @Configuration
 public class CorsConfig {
 
-    private static final Log logger = LogFactory.getLog(CorsConfig.class);
-
     @Bean
     public CorsWebFilter corsWebFilter() {
-        logger.debug("corsWebFilter()");
+        log.debug("corsWebFilter()");
         CorsConfiguration corsConfig = new CorsConfiguration();
         corsConfig.setAllowedOrigins(List.of("http://localhost:5173")); // you can set specific origins here
         corsConfig.setMaxAge(3600L);
@@ -26,7 +24,7 @@ public class CorsConfig {
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfig);
-        logger.info("Uri based cors configuration source instantiated");
+        log.info("Uri based cors configuration source instantiated");
         return new CorsWebFilter(source);
     }
 }

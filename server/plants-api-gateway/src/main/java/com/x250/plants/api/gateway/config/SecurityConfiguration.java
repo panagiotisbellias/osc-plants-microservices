@@ -1,8 +1,7 @@
 package com.x250.plants.api.gateway.config;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,18 +11,17 @@ import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
+@Slf4j
 @Configuration
 @EnableWebFluxSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
-    private static final Log logger = LogFactory.getLog(SecurityConfiguration.class);
-
     private final AuthFilter authFilter;
 
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity serverHttpSecurity) {
-        logger.debug(String.format("springSecurityFilterChain(%s)", serverHttpSecurity.getClass()));
+        log.debug("springSecurityFilterChain({})", serverHttpSecurity.getClass());
         serverHttpSecurity
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .cors(Customizer.withDefaults())
@@ -52,7 +50,7 @@ public class SecurityConfiguration {
                 .addFilterAt(authFilter, SecurityWebFiltersOrder.AUTHENTICATION)
 //
         ;
-        logger.info("Server http security object is constructed");
+        log.info("Server http security object is constructed");
         return serverHttpSecurity.build();
     }
 

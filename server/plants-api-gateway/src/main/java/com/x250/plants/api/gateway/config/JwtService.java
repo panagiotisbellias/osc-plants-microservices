@@ -6,8 +6,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +15,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.function.Function;
 
+@Slf4j
 @Service
 public class JwtService {
-
-    private static final Log logger = LogFactory.getLog(JwtService.class);
 
     @Value("${application.security.jwt.secret-key}")
     private String secretKey;
@@ -31,35 +29,35 @@ public class JwtService {
     }
 
     public String extractUsername(String token) {
-        logger.debug(String.format("extractUsername(%s)", token));
+        log.debug("extractUsername({})", token);
         return extractClaim(token, Claims::getSubject);
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        logger.debug(String.format("extractClaim(%s, %s)", token, claimsResolver.getClass()));
+        log.debug("extractClaim({}, {})", token, claimsResolver.getClass());
         final Claims claims = extractAllClaims(token);
-        logger.info("All claims are extracted");
+        log.info("All claims are extracted");
         return claimsResolver.apply(claims);
     }
 
     public boolean isTokenValid(String token) {
-        logger.debug(String.format("isTokenValid(%s)", token));
+        log.debug("isTokenValid({})", token);
         final String email = extractUsername(token);
-        logger.info(String.format("Email %s is retrieved from token", email));
+        log.info("Email {} is retrieved from token", email);
         return appUserRepository.findByEmail(email).isPresent() && isTokenExpired(token);
     }
 
     private boolean isTokenExpired(String token) {
-        logger.debug(String.format("isTokenExpired(%s)", token));
+        log.debug("isTokenExpired({})", token);
         return !extractExpiration(token).before(new Date());
     }
 
     private Date extractExpiration(String token) {
-        logger.debug(String.format("extractExpiration(%s)", token));
+        log.debug("extractExpiration({})", token);
         return extractClaim(token, Claims::getExpiration);
     }
     private Claims extractAllClaims(String token) {
-        logger.debug(String.format("extractAllClaims(%s)", token));
+        log.debug("extractAllClaims({})", token);
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
@@ -69,9 +67,9 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
-        logger.debug("getSignInKey()");
+        log.debug("getSignInKey()");
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
-        logger.debug(String.format("Secret key %s is decoded to: %s", secretKey, Arrays.toString(keyBytes)));
+        log.debug("Secret key {} is decoded to: {}", secretKey, Arrays.toString(keyBytes));
         return Keys.hmacShaKeyFor(keyBytes);
     }
 

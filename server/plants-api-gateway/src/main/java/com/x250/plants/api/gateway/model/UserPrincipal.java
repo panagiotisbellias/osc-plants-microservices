@@ -1,18 +1,16 @@
 package com.x250.plants.api.gateway.model;
 
 import lombok.Getter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
+@Slf4j
 @Getter
 public class UserPrincipal implements UserDetails{
-
-    private static final Log logger = LogFactory.getLog(UserPrincipal.class);
 
     private final String id;
     private final String email;
@@ -28,10 +26,10 @@ public class UserPrincipal implements UserDetails{
     }
 
     public static UserPrincipal create(AppUser appUser) {
-        logger.debug(String.format("create(%s)", appUser));
+        log.debug("create({})", appUser);
         List<GrantedAuthority> authorities =
                 Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + appUser.getRole().toString()));
-        logger.info(String.format("Authorities for app user %s are: %s", appUser, authorities.get(0).getAuthority()));
+        log.info("Authorities for app user {} are: {}", appUser, authorities.get(0).getAuthority());
         return new UserPrincipal(
                 appUser.getId(),
                 appUser.getEmail(),
@@ -41,47 +39,47 @@ public class UserPrincipal implements UserDetails{
     }
 
     public static UserPrincipal create(AppUser appUser, Map<String, Object> attributes) {
-        logger.debug(String.format("create(%s, %s)", appUser, Arrays.toString(attributes.entrySet().toArray())));
+        log.debug("create({}, {})", appUser, Arrays.toString(attributes.entrySet().toArray()));
         UserPrincipal principal = create(appUser);
         principal.attributes = attributes;
-        logger.info("User principal object successfully instantiated");
+        log.info("User principal object successfully instantiated");
         return principal;
     }
 
 
     @Override
     public String getUsername() {
-        logger.debug("getUsername()");
+        log.debug("getUsername()");
         return email;
     }
 
     @Override
     public String getPassword() {
-        logger.debug("getPassword()");
+        log.debug("getPassword()");
         return password;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        logger.debug("isAccountNonExpired()");
+        log.debug("isAccountNonExpired()");
         return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        logger.debug("isAccountNonLocked()");
+        log.debug("isAccountNonLocked()");
         return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        logger.debug("isCredentialsNonExpired()");
+        log.debug("isCredentialsNonExpired()");
         return true;
     }
 
     @Override
     public boolean isEnabled() {
-        logger.debug("isEnabled()");
+        log.debug("isEnabled()");
         return true;
     }
 
