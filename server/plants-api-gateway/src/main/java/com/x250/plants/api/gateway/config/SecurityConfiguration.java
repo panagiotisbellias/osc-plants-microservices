@@ -1,6 +1,8 @@
 package com.x250.plants.api.gateway.config;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,10 +17,13 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
+    private static final Log logger = LogFactory.getLog(SecurityConfiguration.class);
+
     private final AuthFilter authFilter;
 
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity serverHttpSecurity) {
+        logger.debug(String.format("springSecurityFilterChain(%s)", serverHttpSecurity.getClass()));
         serverHttpSecurity
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .cors(Customizer.withDefaults())
@@ -47,7 +52,7 @@ public class SecurityConfiguration {
                 .addFilterAt(authFilter, SecurityWebFiltersOrder.AUTHENTICATION)
 //
         ;
-
+        logger.info("Server http security object is constructed");
         return serverHttpSecurity.build();
     }
 
