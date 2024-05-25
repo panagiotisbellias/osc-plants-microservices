@@ -2,10 +2,13 @@ package com.x250.plants.authentication.exception;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ResourceNotFoundException extends RuntimeException {
+
     private String resourceName;
     private String fieldName;
     private Object fieldValue;
@@ -15,6 +18,7 @@ public class ResourceNotFoundException extends RuntimeException {
         this.resourceName = resourceName;
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;
+        log.error(super.toString());
     }
 
 }

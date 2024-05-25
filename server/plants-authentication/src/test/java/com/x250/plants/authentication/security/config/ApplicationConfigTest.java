@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -64,7 +65,10 @@ class ApplicationConfigTest {
     @Test
     void testAuthenticationManager() throws Exception {
         AuthenticationConfiguration config = Mockito.mock(AuthenticationConfiguration.class);
-        Assertions.assertNull(applicationConfig.authenticationManager(config));
+        AuthenticationManager authenticationManager = Mockito.mock(AuthenticationManager.class);
+
+        Mockito.when(config.getAuthenticationManager()).thenReturn(authenticationManager);
+        Assertions.assertEquals(authenticationManager, applicationConfig.authenticationManager(config));
     }
 
     @Test

@@ -58,7 +58,7 @@ class CookieUtilsTest {
         CookieUtils.deleteCookie(request, response, "name");
 
         Mockito.verify(request).getCookies();
-        Mockito.verify(cookie).getName();
+        Mockito.verify(cookie, Mockito.times(2)).getName();
         Mockito.verify(cookie).setValue("");
         Mockito.verify(cookie).setPath("/");
         Mockito.verify(cookie).setMaxAge(0);
