@@ -17,6 +17,7 @@ public class MessageQueueService {
 
     @KafkaListener(topics = "notificationTopic")
     public void handleNotification(PlantWateringEvent plantWateringEvent) {
+        log.debug("handleNotification({})", plantWateringEvent.getClass());
         UsersPlantToWater usersPlantToWater = mapToUsersPlantToWater(plantWateringEvent);
 
         notificationRepository.save(usersPlantToWater);
@@ -25,6 +26,7 @@ public class MessageQueueService {
     }
 
     private UsersPlantToWater mapToUsersPlantToWater(PlantWateringEvent plantWateringEvent) {
+        log.debug("mapToUsersPlantWater({})", plantWateringEvent.getClass());
         return UsersPlantToWater.builder()
                 .usersPlantId(plantWateringEvent.usersPlantId())
                 .plantName(plantWateringEvent.plantName())
