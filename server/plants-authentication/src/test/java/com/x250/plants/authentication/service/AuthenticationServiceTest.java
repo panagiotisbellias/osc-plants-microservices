@@ -54,7 +54,7 @@ class AuthenticationServiceTest {
 
     @Test
     void testRegister() {
-        Mockito.when(request.role()).thenReturn(role);
+        Mockito.when(request.role()).thenReturn(Role.USER);
         AuthenticationResponse response = authenticationService.register(request);
         Assertions.assertNull(response.getAccessToken());
     }
@@ -72,9 +72,9 @@ class AuthenticationServiceTest {
     @Test
     void testAuthenticate() {
         AuthenticationRequest request = Mockito.mock(AuthenticationRequest.class);
-        Mockito.when(request.email()).thenReturn("email");
-        Mockito.when(appUser.getRole()).thenReturn(role);
-        Mockito.when(repository.findByEmail("email")).thenReturn(Optional.of(appUser));
+        Mockito.when(request.email()).thenReturn("test@email.com");
+        Mockito.when(appUser.getRole()).thenReturn(Role.USER);
+        Mockito.when(repository.findByEmail("test@email.com")).thenReturn(Optional.of(appUser));
         AuthenticationResponse response = authenticationService.authenticate(request);
         Assertions.assertNull(response.getAccessToken());
     }

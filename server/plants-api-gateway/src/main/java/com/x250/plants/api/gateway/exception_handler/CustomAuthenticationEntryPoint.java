@@ -43,7 +43,7 @@ public class CustomAuthenticationEntryPoint implements ServerAuthenticationEntry
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("errorMessage", exception.getMessage());
         byte[] errorResponse = new Gson().toJson(errorMap).getBytes(StandardCharsets.UTF_8);
-        log.info("errorResponse is constructed");
+        log.info("Error's response is constructed");
         DataBuffer buffer = exchange.getResponse().bufferFactory().wrap(errorResponse);
         log.info("Server web exchange object is updated");
         return exchange.getResponse().writeWith(Mono.just(buffer));

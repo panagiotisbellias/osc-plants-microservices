@@ -10,8 +10,8 @@ class EntityNotFoundExceptionTest {
 
     @Test
     void testConstructor() {
-        EntityNotFoundException entityNotFoundException = new EntityNotFoundException("message");
-        Assertions.assertEquals("message", entityNotFoundException.getMessage());
+        EntityNotFoundException entityNotFoundException = new EntityNotFoundException("testMessage");
+        Assertions.assertEquals("testMessage", entityNotFoundException.getMessage());
     }
 
 }

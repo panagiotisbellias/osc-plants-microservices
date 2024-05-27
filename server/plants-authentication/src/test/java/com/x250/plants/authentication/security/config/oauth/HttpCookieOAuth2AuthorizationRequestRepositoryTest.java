@@ -35,7 +35,7 @@ class HttpCookieOAuth2AuthorizationRequestRepositoryTest {
 
     @Test
     void testSaveAuthorizationRequest() {
-        Mockito.when(request.getParameter(HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_COOKIE_NAME)).thenReturn("redirect uri after login");
+        Mockito.when(request.getParameter(HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_COOKIE_NAME)).thenReturn("testRedirectURI");
         httpCookieOAuth2AuthorizationRequestRepository.saveAuthorizationRequest(authorizationRequest, request, response);
 
         verifyRequestInvocations();

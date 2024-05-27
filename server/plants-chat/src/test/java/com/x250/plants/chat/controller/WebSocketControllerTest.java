@@ -32,6 +32,7 @@ class WebSocketControllerTest {
     @Test
     void testProcessMessageFromClient() {
         Message message = Mockito.mock(Message.class);
+        Mockito.when(message.getContent()).thenReturn("testMessage");
         Assertions.assertNull(webSocketController.processMessageFromClient(message));
     }
 

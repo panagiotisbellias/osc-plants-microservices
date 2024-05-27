@@ -41,16 +41,16 @@ class ApplicationConfigTest {
 
     @Test
     void testReactiveUserDetailsServiceTest() {
-        Mockito.when(appUser.getRole()).thenReturn(role);
-        Mockito.when(appUserRepository.findByEmail("username")).thenReturn(Optional.of(appUser));
-        Assertions.assertInstanceOf(Mono.class, applicationConfig.reactiveUserDetailsService().findByUsername("username"));
+        Mockito.when(appUser.getRole()).thenReturn(Role.USER);
+        Mockito.when(appUserRepository.findByEmail("testUser1")).thenReturn(Optional.of(appUser));
+        Assertions.assertInstanceOf(Mono.class, applicationConfig.reactiveUserDetailsService().findByUsername("testUser1"));
     }
 
     @Test
     void testUserDetailsServiceTest() {
-        Mockito.when(appUser.getRole()).thenReturn(role);
-        Mockito.when(appUserRepository.findByEmail("username")).thenReturn(Optional.of(appUser));
-        Assertions.assertNull(applicationConfig.userDetailsService().loadUserByUsername("username").getUsername());
+        Mockito.when(appUser.getRole()).thenReturn(Role.ADMIN);
+        Mockito.when(appUserRepository.findByEmail("testUser2")).thenReturn(Optional.of(appUser));
+        Assertions.assertNull(applicationConfig.userDetailsService().loadUserByUsername("testUser2").getUsername());
     }
 
     @Test

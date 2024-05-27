@@ -28,9 +28,9 @@ class CookieUtilsTest {
 
     @Test
     void testGetCookie() {
-        Mockito.when(cookie.getName()).thenReturn("name");
+        Mockito.when(cookie.getName()).thenReturn("testCookie3");
         Mockito.when(request.getCookies()).thenReturn(new Cookie[]{cookie});
-        Assertions.assertEquals(Optional.of(cookie), CookieUtils.getCookie(request, "name"));
+        Assertions.assertEquals(Optional.of(cookie), CookieUtils.getCookie(request, "testCookie3"));
     }
 
     @Test
@@ -42,20 +42,20 @@ class CookieUtilsTest {
     void testGetCookieNoMatch() {
         Mockito.when(cookie.getName()).thenReturn("name1");
         Mockito.when(request.getCookies()).thenReturn(new Cookie[]{cookie});
-        Assertions.assertEquals(Optional.empty(), CookieUtils.getCookie(request, "name2"));
+        Assertions.assertEquals(Optional.empty(), CookieUtils.getCookie(request, "testCookie4"));
     }
 
     @Test
     void testAddCookie() {
-        CookieUtils.addCookie(response, "name", "value", 0);
+        CookieUtils.addCookie(response, "testCookie2", "value", 0);
         Mockito.verify(response).addCookie(ArgumentMatchers.any(Cookie.class));
     }
 
     @Test
     void testDeleteCookie() {
-        Mockito.when(cookie.getName()).thenReturn("name");
+        Mockito.when(cookie.getName()).thenReturn("testCookie1");
         Mockito.when(request.getCookies()).thenReturn(new Cookie[]{cookie});
-        CookieUtils.deleteCookie(request, response, "name");
+        CookieUtils.deleteCookie(request, response, "testCookie1");
 
         Mockito.verify(request).getCookies();
         Mockito.verify(cookie, Mockito.times(2)).getName();
@@ -75,7 +75,7 @@ class CookieUtilsTest {
     void testDeleteCookieNoMatch() {
         Mockito.when(cookie.getName()).thenReturn("name1");
         Mockito.when(request.getCookies()).thenReturn(new Cookie[]{cookie});
-        CookieUtils.deleteCookie(request, response, "name2");
+        CookieUtils.deleteCookie(request, response, "testCookie5");
 
         Mockito.verify(cookie).getName();
         verifyCommonInteractions();

@@ -10,9 +10,9 @@ class CaptchaVerificationExceptionTest {
 
     @Test
     void testConstructor() {
-        CaptchaVerificationException captchaVerificationException = new CaptchaVerificationException("message");
+        CaptchaVerificationException captchaVerificationException = new CaptchaVerificationException("testMessage");
         Assertions.assertInstanceOf(CaptchaVerificationException.class, captchaVerificationException);
-        Assertions.assertEquals("message", captchaVerificationException.getMessage());
+        Assertions.assertEquals("testMessage", captchaVerificationException.getMessage());
     }
 
 }

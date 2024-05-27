@@ -29,7 +29,7 @@ public class RecaptchaService {
     public boolean isValidCaptcha(String ip, String recaptchaResponse) {
         log.debug("isValidCaptcha({}, {})", ip, recaptchaResponse);
         if(!responseSanityCheck(recaptchaResponse)) {
-            log.warn("Recaptcha response {} doesn't match with the pattern", recaptchaResponse);
+            log.warn("Recaptcha response '{}' doesn't match with the pattern", recaptchaResponse);
             return false;
         }
 
@@ -39,7 +39,7 @@ public class RecaptchaService {
         log.info("Request for captcha verification done");
 
         if(resp != null) {
-            log.info("Response for captcha verification: {}", resp);
+            log.info("Response for captcha verification: {}", resp.getHostname());
             return resp.isSuccess();
         }
         log.warn("Response for captcha verification is null");

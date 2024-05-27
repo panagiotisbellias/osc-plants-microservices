@@ -44,13 +44,14 @@ class UserPrincipalTest {
 
     @Test
     void testCreate() {
-        Mockito.when(appUser.getRole()).thenReturn(role);
+        Mockito.when(appUser.getRole()).thenReturn(Role.USER);
         Assertions.assertInstanceOf(UserPrincipal.class, UserPrincipal.create(appUser));
     }
 
     @Test
     void testCreateWithAttributes() {
-        Mockito.when(appUser.getRole()).thenReturn(role);
+        Mockito.when(appUser.getUsername()).thenReturn("testUser");
+        Mockito.when(appUser.getRole()).thenReturn(Role.USER);
         Assertions.assertInstanceOf(UserPrincipal.class, UserPrincipal.create(appUser, attributes));
     }
 

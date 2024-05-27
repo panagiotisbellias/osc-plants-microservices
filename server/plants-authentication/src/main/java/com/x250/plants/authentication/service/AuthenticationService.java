@@ -38,7 +38,7 @@ public class AuthenticationService {
         log.info("App user instantiated");
         Optional<AppUser> appUserOptional = repository.findByEmail(request.email());
         if (appUserOptional.isPresent()) {
-            log.error("user already exists");
+            log.error("User already exists");
             throw new RuntimeException("user already exists");
         }
 

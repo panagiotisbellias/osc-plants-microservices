@@ -37,11 +37,11 @@ class ApplicationConfigTest {
     @Test
     void testUserDetailsService() {
         AppUser appUser = Mockito.mock(AppUser.class);
-        Role role = Mockito.mock(Role.class);
+        Mockito.when(appUser.getRole()).thenReturn(Role.USER);
+        Mockito.when(appUser.getUsername()).thenReturn("testUser");
+        Mockito.when(appUserRepository.findByEmail("testUser")).thenReturn(Optional.of(appUser));
 
-        Mockito.when(appUser.getRole()).thenReturn(role);
-        Mockito.when(appUserRepository.findByEmail("username")).thenReturn(Optional.of(appUser));
-        UserDetails userDetails = applicationConfig.userDetailsService().loadUserByUsername("username");
+        UserDetails userDetails = applicationConfig.userDetailsService().loadUserByUsername("testUser");
         Assertions.assertNull(userDetails.getPassword());
         Assertions.assertNull(userDetails.getUsername());
         Assertions.assertTrue(userDetails.isAccountNonExpired());

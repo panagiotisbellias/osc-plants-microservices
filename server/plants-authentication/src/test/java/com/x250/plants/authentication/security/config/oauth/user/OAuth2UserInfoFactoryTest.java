@@ -25,8 +25,8 @@ class OAuth2UserInfoFactoryTest {
     @Test
     void testGetException() {
 
-        OAuth2AuthenticationProcessingException oAuth2AuthenticationProcessingException = Assertions.assertThrows(OAuth2AuthenticationProcessingException.class, () -> OAuth2UserInfoFactory.get("registration id", attributes));
-        Assertions.assertEquals("registration id is not supported", oAuth2AuthenticationProcessingException.getMessage());
+        OAuth2AuthenticationProcessingException oAuth2AuthenticationProcessingException = Assertions.assertThrows(OAuth2AuthenticationProcessingException.class, () -> OAuth2UserInfoFactory.get("Registration id", attributes));
+        Assertions.assertEquals("Registration id is not supported", oAuth2AuthenticationProcessingException.getMessage());
     }
 
 }

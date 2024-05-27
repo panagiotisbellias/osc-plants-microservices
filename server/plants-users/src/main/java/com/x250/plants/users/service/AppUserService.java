@@ -36,7 +36,7 @@ public class AppUserService {
     public AppUserResponseDTO addUser(AppUserCreateDTO appUserCreateDTO) {
         log.debug("addUser({})", appUserCreateDTO.toString());
         AppUser appUser = mapToAppUser(appUserCreateDTO);
-        log.info("Mapping to app user {} is done", appUser);
+        log.info("Mapping to {} is done", appUser);
         return appUserDTOMapper.apply(appUserRepository.save(appUser));
     }
 

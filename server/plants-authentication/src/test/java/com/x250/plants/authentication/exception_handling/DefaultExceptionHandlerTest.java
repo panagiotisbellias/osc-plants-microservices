@@ -20,23 +20,23 @@ class DefaultExceptionHandlerTest {
     @Test
     void testHandleAuthenticationException() {
         Exception ex = Mockito.mock(Exception.class);
-        Mockito.when(ex.getMessage()).thenReturn("message");
+        Mockito.when(ex.getMessage()).thenReturn("testMessage");
         ResponseEntity<Map<String, String>> actualError = defaultExceptionHandler.handleAuthenticationException(ex);
 
         Assertions.assertInstanceOf(ResponseEntity.class, actualError);
         Assertions.assertEquals(HttpStatus.UNAUTHORIZED, actualError.getStatusCode());
-        Assertions.assertEquals(Map.of(HttpStatus.UNAUTHORIZED.toString(), "message"), actualError.getBody());
+        Assertions.assertEquals(Map.of(HttpStatus.UNAUTHORIZED.toString(), "testMessage"), actualError.getBody());
     }
 
     @Test
     void testHandleAuthorizationException() {
         Exception ex = Mockito.mock(Exception.class);
-        Mockito.when(ex.getMessage()).thenReturn("message");
+        Mockito.when(ex.getMessage()).thenReturn("testMessage");
         ResponseEntity<Map<String, String>> actualError = defaultExceptionHandler.handleAuthorizationException(ex);
 
         Assertions.assertInstanceOf(ResponseEntity.class, actualError);
         Assertions.assertEquals(HttpStatus.FORBIDDEN, actualError.getStatusCode());
-        Assertions.assertEquals(Map.of(HttpStatus.FORBIDDEN.toString(), "message"), actualError.getBody());
+        Assertions.assertEquals(Map.of(HttpStatus.FORBIDDEN.toString(), "testMessage"), actualError.getBody());
     }
 
 }

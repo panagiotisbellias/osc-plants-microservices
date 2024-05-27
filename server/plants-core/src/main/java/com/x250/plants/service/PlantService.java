@@ -28,7 +28,7 @@ public class PlantService {
     public PlantResponseDTO addPlant(PlantCreateDTO plantCreateDTO) {
         log.debug("addPlant({})", plantCreateDTO.toString());
         Plant plant = mapPlantCreateDTO(plantCreateDTO);
-        log.info("Plant {} created", plant);
+        log.info("{} created", plant);
         return plantDTOMapper.apply(plantRepository.save(plant));
     }
 

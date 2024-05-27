@@ -27,7 +27,7 @@ public class ApplicationExceptionHandler {
         log.debug("handleValidationExceptions({})", ex.toString());
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach(error -> {
-            log.info("Error: {}", error.toString());
+            log.info("Error: {}", error.getClass().getName());
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);

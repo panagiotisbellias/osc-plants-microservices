@@ -38,7 +38,7 @@ public class EmailNotificationSender {
             log.info("email sent ! Notification saved");
             try {
                 Thread.sleep(MILLISECONDS_TO_SLEEP);
-                log.info("Waited {}", MILLISECONDS_TO_SLEEP);
+                log.info("Waited {}ms", MILLISECONDS_TO_SLEEP);
             } catch (InterruptedException ie) {
                 log.error(Arrays.toString(ie.getStackTrace()));
                 Thread.currentThread().interrupt();

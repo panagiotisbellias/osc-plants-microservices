@@ -24,7 +24,7 @@ public class WebSocketController {
     public String processMessageFromClient(@RequestBody Message message) {
         log.debug("processMessageFromClient({})", message);
         Message savedMessage = messageService.saveMessage(message);
-        log.info("Message {} is saved", message);
+        log.info("Message {} is saved", message.getContent());
         return webSocketService.stringifyMessage(savedMessage);
     }
 

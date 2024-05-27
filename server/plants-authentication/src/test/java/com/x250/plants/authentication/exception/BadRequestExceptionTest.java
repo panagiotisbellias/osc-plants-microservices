@@ -11,19 +11,19 @@ class BadRequestExceptionTest {
 
     @Test
     void testOneArgsConstructor() {
-        BadRequestException badRequestException = new BadRequestException("message");
+        BadRequestException badRequestException = new BadRequestException("testMessage");
         Assertions.assertInstanceOf(BadRequestException.class, badRequestException);
-        Assertions.assertEquals("message", badRequestException.getMessage());
+        Assertions.assertEquals("testMessage", badRequestException.getMessage());
     }
 
     @Test
     void testTwoArgsConstructor() {
         Throwable throwable = Mockito.mock(Throwable.class);
         Mockito.when(throwable.getMessage()).thenReturn("message2");
-        BadRequestException badRequestException = new BadRequestException("message1", throwable);
+        BadRequestException badRequestException = new BadRequestException("testMessage1", throwable);
 
         Assertions.assertInstanceOf(BadRequestException.class, badRequestException);
-        Assertions.assertEquals("message1", badRequestException.getMessage());
+        Assertions.assertEquals("testMessage1", badRequestException.getMessage());
         Assertions.assertEquals("message2", badRequestException.getCause().getMessage());
     }
 

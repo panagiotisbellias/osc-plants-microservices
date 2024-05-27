@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Optional;
 
+//TODO Extract common code before logging issue is closed
 @Slf4j
 public class CookieUtils {
 
@@ -60,6 +61,7 @@ public class CookieUtils {
                     log.info("Cookie is updated");
                     response.addCookie(cookie);
                     log.info("Cookie {} is added to the response", cookie.getName());
+                    break;
                 }
             }
             log.info("Cookie {} is not found", name);

@@ -13,18 +13,18 @@ class OAuth2AuthenticationProcessingExceptionTest {
     void testTwoArgsConstructor() {
         Throwable throwable = Mockito.mock(Throwable.class);
         Mockito.when(throwable.getMessage()).thenReturn("message2");
-        OAuth2AuthenticationProcessingException oAuth2AuthenticationProcessingException = new OAuth2AuthenticationProcessingException("message1", throwable);
+        OAuth2AuthenticationProcessingException oAuth2AuthenticationProcessingException = new OAuth2AuthenticationProcessingException("testMessage1", throwable);
 
         Assertions.assertInstanceOf(OAuth2AuthenticationProcessingException.class, oAuth2AuthenticationProcessingException);
-        Assertions.assertEquals("message1", oAuth2AuthenticationProcessingException.getMessage());
+        Assertions.assertEquals("testMessage1", oAuth2AuthenticationProcessingException.getMessage());
         Assertions.assertEquals("message2", oAuth2AuthenticationProcessingException.getCause().getMessage());
     }
 
     @Test
     void testOneArgConstructor() {
-        OAuth2AuthenticationProcessingException oAuth2AuthenticationProcessingException = new OAuth2AuthenticationProcessingException("message");
+        OAuth2AuthenticationProcessingException oAuth2AuthenticationProcessingException = new OAuth2AuthenticationProcessingException("testMessage");
         Assertions.assertInstanceOf(OAuth2AuthenticationProcessingException.class, oAuth2AuthenticationProcessingException);
-        Assertions.assertEquals("message", oAuth2AuthenticationProcessingException.getMessage());
+        Assertions.assertEquals("testMessage", oAuth2AuthenticationProcessingException.getMessage());
     }
 
 }

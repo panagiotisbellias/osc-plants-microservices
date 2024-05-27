@@ -34,13 +34,17 @@ class EmailNotificationSenderTest {
     @Test
     void testSend() {
         UsersPlantToWater usersPlantToWater = Mockito.mock(UsersPlantToWater.class);
+        Mockito.when(usersPlantToWater.getAppUserEmail()).thenReturn("recipient@email.com");
+        Mockito.when(usersPlantToWater.getPlantName()).thenReturn("testPlant");
         Mockito.when(notificationRepository.findByEmailSentIsFalse()).thenReturn(List.of(usersPlantToWater));
-        emailNotificationSender.send();
 
+        emailNotificationSender.send();
         Mockito.verify(notificationRepository).findByEmailSentIsFalse();
         Mockito.verify(usersPlantToWater).getAppUserEmail();
         Mockito.verify(usersPlantToWater, Mockito.times(2)).getPlantName();
-        Mockito.verify(emailSender).sendEmail("emailsender666666@gmail.com", null, "Water " + null, "Your plant " + null + " needs some water");
+        Mockito.verify(emailSender).sendEmail("emailsender666666@gmail.com", "recipient@email.com",
+                "Water testPlant",
+                "Your plant testPlant needs some water");
         Mockito.verify(usersPlantToWater).setEmailSent(true);
         Mockito.verify(notificationRepository).save(usersPlantToWater);
     }

@@ -24,7 +24,7 @@ public class CorsConfig {
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfig);
-        log.info("Uri based cors configuration source instantiated");
+        log.info("URI based cors configuration source instantiated");
         return new CorsWebFilter(source);
     }
 }

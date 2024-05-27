@@ -39,14 +39,14 @@ class UserPrincipalTest {
 
     @Test
     void testCreate() {
-        Mockito.when(appUser.getRole()).thenReturn(role);
+        Mockito.when(appUser.getRole()).thenReturn(Role.ADMIN);
         UserPrincipal userPrincipal = UserPrincipal.create(appUser);
         Assertions.assertInstanceOf(UserPrincipal.class, userPrincipal);
     }
 
     @Test
     void testCreateWithAttributes() {
-        Mockito.when(appUser.getRole()).thenReturn(role);
+        Mockito.when(appUser.getRole()).thenReturn(Role.USER);
         UserPrincipal userPrincipal = UserPrincipal.create(appUser, attributes);
         Assertions.assertFalse(userPrincipal.getAttributes().isEmpty());
     }

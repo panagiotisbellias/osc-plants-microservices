@@ -41,31 +41,31 @@ class ApplicationExceptionHandlerTest {
     @Test
     void testHandleCaptchaVerificationExceptions() {
         CaptchaVerificationException ex = Mockito.mock(CaptchaVerificationException.class);
-        Mockito.when(ex.getMessage()).thenReturn("test");
+        Mockito.when(ex.getMessage()).thenReturn("testMessage3");
         Map<String, String> errors = applicationExceptionHandler.handleCaptchaVerificationExceptions(ex);
 
         Assertions.assertEquals(1, errors.size());
-        Assertions.assertEquals("test", errors.get("message"));
+        Assertions.assertEquals("testMessage3", errors.get("message"));
     }
 
     @Test
     void testHandleResourceNotFoundExceptions() {
         ResourceNotFoundException ex = Mockito.mock(ResourceNotFoundException.class);
-        Mockito.when(ex.getMessage()).thenReturn("test");
+        Mockito.when(ex.getMessage()).thenReturn("testMessage2");
         Map<String, String> errors = applicationExceptionHandler.handleResourceNotFoundExceptions(ex);
 
         Assertions.assertEquals(1, errors.size());
-        Assertions.assertEquals("test", errors.get("message"));
+        Assertions.assertEquals("testMessage2", errors.get("message"));
     }
 
     @Test
     void testHandleBadRequestExceptions() {
         BadRequestException ex = Mockito.mock(BadRequestException.class);
-        Mockito.when(ex.getMessage()).thenReturn("test");
+        Mockito.when(ex.getMessage()).thenReturn("testMessage1");
         Map<String, String> errors = applicationExceptionHandler.handleBadRequestExceptions(ex);
 
         Assertions.assertEquals(1, errors.size());
-        Assertions.assertEquals("test", errors.get("message"));
+        Assertions.assertEquals("testMessage1", errors.get("message"));
     }
 
 }

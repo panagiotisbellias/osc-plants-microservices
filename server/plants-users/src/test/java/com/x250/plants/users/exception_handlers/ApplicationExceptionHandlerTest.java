@@ -19,19 +19,21 @@ class ApplicationExceptionHandlerTest {
     @Test
     void testHandleEntityNotFoundException() {
         EntityNotFoundException ex = Mockito.mock(EntityNotFoundException.class);
+        Mockito.when(ex.getMessage()).thenReturn("testMessage2");
         Map<String, String> errorMap = applicationExceptionHandler.handleEntityNotFoundException(ex);
 
         Assertions.assertEquals(1, errorMap.size());
-        Assertions.assertNull(errorMap.get("errorMessage"));
+        Assertions.assertEquals("testMessage2", errorMap.get("errorMessage"));
     }
 
     @Test
     void testHandleRuntimeException() {
         RuntimeException ex = Mockito.mock(RuntimeException.class);
+        Mockito.when(ex.getMessage()).thenReturn("testMessage1");
         Map<String, String> errorMap = applicationExceptionHandler.handleRuntimeException(ex);
 
         Assertions.assertEquals(1, errorMap.size());
-        Assertions.assertNull(errorMap.get("errorMessage"));
+        Assertions.assertEquals("testMessage1", errorMap.get("errorMessage"));
     }
 
 }

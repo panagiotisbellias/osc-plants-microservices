@@ -40,7 +40,7 @@ class DelegatedAccessDeniedHandlerTest {
         AccessDeniedException accessDeniedException = Mockito.mock(AccessDeniedException.class);
         PrintWriter writer = Mockito.mock(PrintWriter.class);
 
-        Mockito.when(objectMapper.writeValueAsString(ArgumentMatchers.any(HashMap.class))).thenReturn("json response");
+        Mockito.when(objectMapper.writeValueAsString(ArgumentMatchers.any(HashMap.class))).thenReturn("{\"testKey\":\"testValue\"}");
         Mockito.when(response.getWriter()).thenReturn(writer);
         delegatedAccessDeniedHandler.handle(request, response, accessDeniedException);
 
@@ -49,7 +49,7 @@ class DelegatedAccessDeniedHandlerTest {
         Mockito.verify(response).setContentType("application/json");
         Mockito.verify(response).setStatus(HttpServletResponse.SC_FORBIDDEN);
         Mockito.verify(response).getWriter();
-        Mockito.verify(writer).write("json response");
+        Mockito.verify(writer).write("{\"testKey\":\"testValue\"}");
     }
 
 }
