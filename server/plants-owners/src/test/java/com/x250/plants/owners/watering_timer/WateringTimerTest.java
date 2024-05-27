@@ -80,7 +80,7 @@ class WateringTimerTest {
         Mockito.when(kafkaTemplate.send(ArgumentMatchers.eq("notificationTopic"), ArgumentMatchers.any(PlantWateringEvent.class))).thenReturn(completableFuture);
 
         RuntimeException runtimeException = Assertions.assertThrows(RuntimeException.class, () -> wateringTimer.notifyAboutPlantsToWater());
-        Assertions.assertEquals("Kafka failure 1 !!!!!!!!!!!!!!!!", runtimeException.getMessage());
+        Assertions.assertEquals("Kafka failure 1 !", runtimeException.getMessage());
     }
 
     @Test
@@ -92,7 +92,7 @@ class WateringTimerTest {
         Mockito.when(kafkaTemplate.send(ArgumentMatchers.eq("notificationTopic"), ArgumentMatchers.any(PlantWateringEvent.class))).thenReturn(completableFuture);
 
         RuntimeException runtimeException = Assertions.assertThrows(RuntimeException.class, () -> wateringTimer.notifyAboutPlantsToWater());
-        Assertions.assertEquals("Kafka failure 2 !!!!!!!!!!!!!!!!", runtimeException.getMessage());
+        Assertions.assertEquals("Kafka failure 2 !", runtimeException.getMessage());
     }
 
     @Test
@@ -104,7 +104,7 @@ class WateringTimerTest {
         Mockito.when(kafkaTemplate.send(ArgumentMatchers.eq("notificationTopic"), ArgumentMatchers.any(PlantWateringEvent.class))).thenReturn(completableFuture);
 
         RuntimeException runtimeException = Assertions.assertThrows(RuntimeException.class, () -> wateringTimer.notifyAboutPlantsToWater());
-        Assertions.assertEquals("Kafka failure 3 !!!!!!!!!!!!!!!!", runtimeException.getMessage());
+        Assertions.assertEquals("Kafka failure 3 !", runtimeException.getMessage());
     }
 
     @Test
@@ -116,7 +116,7 @@ class WateringTimerTest {
         Mockito.when(kafkaTemplate.send(ArgumentMatchers.eq("notificationTopic"), ArgumentMatchers.any(PlantWateringEvent.class))).thenReturn(completableFuture);
 
         RuntimeException runtimeException = Assertions.assertThrows(RuntimeException.class, () -> wateringTimer.notifyAboutPlantsToWater());
-        Assertions.assertEquals("Kafka failure 4 !!!!!!!!!!!!!!!!", runtimeException.getMessage());
+        Assertions.assertEquals("Kafka failure 4 !", runtimeException.getMessage());
     }
 
 }

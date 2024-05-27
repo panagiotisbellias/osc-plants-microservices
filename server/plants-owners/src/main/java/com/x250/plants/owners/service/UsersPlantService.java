@@ -29,48 +29,57 @@ public class UsersPlantService {
     private final UsersPlantDTOMapper usersPlantDTOMapper;
 
     public UsersPlantResponseDTO addUsersPlant(UsersPlantCreateDTO usersPlantCreateDTO) throws EntityNotFoundException {
-
+        log.debug("addUsersPlant({})", usersPlantCreateDTO.getClass());
         AppUser appUser = ObjectProvider.getObjectFromDB(usersPlantCreateDTO.appUserId(), appUserRepository);
         Plant plant = ObjectProvider.getObjectFromDB(usersPlantCreateDTO.plantId(), plantRepository);
-
+        log.info("App user is {} and plant is {}", appUser, plant);
         UsersPlant usersPlant = UsersPlant.builder()
                 .appUser(appUser)
                 .plant(plant)
                 .nextWatering(LocalDateTime.now().plusDays(plant.getWateringInterval()))
                 .notificationDate(LocalDateTime.now().plusDays(plant.getWateringInterval())) // added notifications date
                 .build();
-
+        log.info("Users plant is created: {}", usersPlant);
         return usersPlantDTOMapper.apply(usersPlantRepository.save(usersPlant));
     }
 
     public void deleteUsersPlant(Long id) throws EntityNotFoundException {
-        UsersPlant usersPlant = ObjectProvider.getObjectFromDB(id, usersPlantRepository);
-
+        log.debug("deleteUsersPlant({})", id);
+        UsersPlant usersPlant = getUsersPlant(id);
         usersPlantRepository.delete(usersPlant);
+        log.info("Users plant {} is deleted", usersPlant);
     }
 
     public void deleteAllUsersPlant(String id) {
+        log.debug("deleteAllUsersPlant({})", id);
         List<UsersPlant> usersPlantList = usersPlantRepository.findByAppUserId(id);
-
+        log.info("Users plants: {}", usersPlantList.toArray());
         usersPlantRepository.deleteAllInBatch(usersPlantList);
+        log.info("Users plants for user {} are deleted", id);
     }
 
     public UsersPlantResponseDTO updateNextWatering(Long id) throws EntityNotFoundException {
-        UsersPlant usersPlant = ObjectProvider.getObjectFromDB(id, usersPlantRepository);
-
+        log.debug("updateNextWatering({})", id);
+        UsersPlant usersPlant = getUsersPlant(id);
         Plant plant = ObjectProvider.getObjectFromDB(usersPlant.getPlant().getId(), plantRepository);
-
+        log.info("Plant retrieved: {}", plant);
         usersPlant.setNextWatering(LocalDateTime.now().plusDays(plant.getWateringInterval()));
         usersPlant.setNotificationDate(LocalDateTime.now().plusDays(plant.getWateringInterval()));
-
+        log.info("Users plant updated: {}", usersPlant);
         return usersPlantDTOMapper.apply(usersPlantRepository.save(usersPlant));
     }
 
+    private UsersPlant getUsersPlant(Long id) throws EntityNotFoundException {
+        log.debug("getUsersPlant({})", id);
+        UsersPlant usersPlant = ObjectProvider.getObjectFromDB(id, usersPlantRepository);
+        log.info("Users plant retrieved: {}", usersPlant);
+        return usersPlant;
+    }
 
     public List<UsersPlantResponseDTO> getUsersPlants(String userId) {
-
+        log.debug("getUsersPlants({})", userId);
         List<UsersPlant> usersPlants = usersPlantRepository.findByAppUserId(userId);
-
+        log.info("Users plants retrieved: {}", usersPlants.toArray());
         return usersPlants.stream()
                 .map(usersPlantDTOMapper)
                 .toList();
