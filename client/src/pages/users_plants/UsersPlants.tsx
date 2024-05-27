@@ -13,6 +13,7 @@ import {
 } from "./UsersPlants.styles";
 import { Loader } from "../../router/App.styles";
 import { Paper, Stack, Typography } from "@mui/material";
+import { logger } from './logger';
 
 export default function PlantCards() {
   const { currentUser } = useContext(UserContext);
@@ -35,7 +36,9 @@ export default function PlantCards() {
       }
       return 1;
     });
+    logger.info("Plants are sorted");
     setUsersPlants(plants);
+    logger.info("Plants are set to users");
   }
 
   const updateNextWatering = (updatedPlant: UsersPlant) => {
@@ -43,7 +46,7 @@ export default function PlantCards() {
     newUsersPlants = newUsersPlants.map((plant) =>
       plant.id === updatedPlant.id ? updatedPlant : plant
     );
-
+    logger.info("Plants' next watering updated");
     setUsersPlants(newUsersPlants);
   };
 
@@ -52,13 +55,14 @@ export default function PlantCards() {
     newUsersPlants = newUsersPlants.filter(
       (plant) => plant.id !== plantToBeDeletedId
     );
-
+    logger.info("Plant is deleted from user");
     setUsersPlants(newUsersPlants);
   };
 
   const getUsersPlants = useCallback(async () => {
     try {
       if (currentUser?.id) {
+        logger.info("Found the ID of the current user");
         setIsLoading(true);
         const usersPlantsResponse = await UsersPlantApi.getUsersPlants(
           currentUser?.id

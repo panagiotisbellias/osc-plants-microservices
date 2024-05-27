@@ -4,6 +4,7 @@ import { createContext, useEffect, useState } from "react";
 import { UserContextType } from "../model/UserContextType";
 import { UserFromToken } from "../model/UserFromToken";
 import { ACCESS_TOKEN } from "../constants/constants";
+import { logger } from '../logger';
 
 const defaultSettings: UserContextType = {
   currentUser: null,
@@ -17,14 +18,16 @@ export function UserContextProvider({ children }: React.PropsWithChildren) {
   const [currentUser, setCurrentUser] = useState<UserFromToken | null>(null);
 
   const userModifier = (user: UserFromToken | null) => {
+    logger.info('Current user has been set');
     setCurrentUser(user);
   };
 
   useEffect(() => {
     const token: string | null = localStorage.getItem(ACCESS_TOKEN);
     if (token) {
-      const decodedAccessToken: UserFromToken = jwtDecode(token);
-      userModifier({ ...decodedAccessToken });
+        logger.info("Access token has been retrieved from local storage");
+        const decodedAccessToken: UserFromToken = jwtDecode(token);
+        userModifier({ ...decodedAccessToken });
     }
   }, []);
 

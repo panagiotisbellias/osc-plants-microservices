@@ -27,7 +27,8 @@
     "react-router-dom": "^6.23.0",
     "react-toastify": "^10.0.5",
     "sockjs-client": "^1.6.1",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "winston": "^3.13.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.5",

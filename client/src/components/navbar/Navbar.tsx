@@ -19,6 +19,7 @@ import {
   COLOR_3,
 } from "../../constants/constants";
 import { Avatar, Box, Button, Paper, Typography } from "@mui/material";
+import { logger } from '../../logger';
 
 export default function Navbar() {
   // const navigate = useNavigate();
@@ -28,17 +29,21 @@ export default function Navbar() {
   const handleOnLogoutClick = async () => {
     const jwtToken: string | null = localStorage.getItem(ACCESS_TOKEN);
     if (jwtToken) {
-      userModifier(null);
-      localStorage.clear();
-      toast.success("You have successfully logged out", {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: CLOSE_TIME,
-      });
+        logger.info("Found access token in local storage");
+        userModifier(null);
+        localStorage.clear();
+        toast.success("You have successfully logged out", {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: CLOSE_TIME,
+        });
+        logger.info("You have successfully logged out");
     } else {
-      toast.error("Unsuccessful logout!!!", {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: CLOSE_TIME,
-      });
+        logger.info("No access token found in local storage");
+        toast.error("Unsuccessful logout!!!", {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: CLOSE_TIME,
+        });
+        logger.info("Unsuccessful logout!!!");
     }
   };
 
